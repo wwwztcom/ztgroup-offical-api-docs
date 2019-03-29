@@ -1,17 +1,17 @@
 # 行情API
 
-行情api包括私有api都需要在http request请求的header中添加`X-SITE-ID`字段，该字段值请联系运营人员获取。该字段不用做签名校验
+行情api包括私有api都需要在http request请求的header中添加 X-SITE_ID 字段，该字段的值为”1“。该字段不用做签名校验。
 
 ## 获取交易所市场数据
 
 Get /api/v1/tickers  获取价格数据
 
-https://www.xxx.com/api/v1/tickers
+https://www.zt.com/api/v1/tickers
 
 ### 示例
 ```
 # Request 
-GET https://www.xxx.com/api/v1/tickers
+GET https://www.zt.com/api/v1/tickers
 # Response
 {
     "ticker":[
@@ -53,12 +53,12 @@ GET https://www.xxx.com/api/v1/tickers
 
 Get /api/v1/depth  获取深度数据
 
-https://www.xxx.com/api/v1/depth
+https://www.zt.com/api/v1/depth
 
 ### 示例
 ```
 # Request 
-GET https://www.xxx.com/api/v1/depth?symbol=BTC_USDT&size=1
+GET https://www.zt.com/api/v1/depth?symbol=BTC_USDT&size=1
 # Response
 {
     "asks":[
@@ -75,32 +75,25 @@ GET https://www.xxx.com/api/v1/depth?symbol=BTC_USDT&size=1
     bids : bid深度[价格，数量]
 
 ### 请求参数
-<table>
-  <tr>
-    <th>参数</th>
-    <th>描述</th>
-  </tr>
-  <tr>
-    <td>symbol</td>
-    <td>市场名称</td>
-  </tr>
-  <tr>
-    <td>size</td>
-    <td>返回深度的条数</td>
-  </tr>
-</table>
+
+| 参数     | 描述      |
+| ------ | ------- |
+| symbol | 市场名称    |
+| size   | 返回深度的条数 |
+
+
 
 ---
 ## 最新成交记录接口
 
 Get /api/v1/trades  获取最新成交记录数据
 
-https://www.xxx.com/api/v1/trades
+https://www.zt.com/api/v1/trades
 
 ### 示例
 ```
 # Request 
-GET https://www.xxx.com/api/v1/trades?symbol=BTC_USDT&size=1
+GET https://www.zt.com/api/v1/trades?symbol=BTC_USDT&size=1
 # Response
 [
     {
@@ -125,32 +118,24 @@ GET https://www.xxx.com/api/v1/trades?symbol=BTC_USDT&size=1
     timestamp: 时间戳
 
 ### 请求参数
-<table>
-  <tr>
-    <th>参数</th>
-    <th>描述</th>
-  </tr>
-  <tr>
-    <td>symbol</td>
-    <td>市场名称</td>
-  </tr>
-  <tr>
-    <td>size</td>
-    <td>返回成交数的条数</td>
-  </tr>
-</table>
+| 参数     | 描述      |
+| ------ | ------- |
+| symbol | 市场名称    |
+| size   | 返回深度的条数 |
+
+
 
 ---
 ## K线接口
 
 Get /api/v1/trades  获取最新成交记录数据
 
-https://www.xxx.com/api/v1/kline
+https://www.zt.com/api/v1/kline
 
 ### 示例
 ```
 # Request 
-GET https://www.xxx.com/api/v1/kline?symbol=ltc_btc&type=1min&size=100
+GET https://www.zt.com/api/v1/kline?symbol=BTC_USDT&type=1min&size=100
 # Response
 [
     [
@@ -194,36 +179,23 @@ GET https://www.xxx.com/api/v1/kline?symbol=ltc_btc&type=1min&size=100
 ```
 
 ### 请求参数
-<table>
-  <tr>
-    <th>参数</th>
-    <th>描述</th>
-  </tr>
-  <tr>
-    <td>symbol</td>
-    <td>市场名称</td>
-  </tr>
-  <tr>
-    <td>type</td>
-    <td>分时参数，可以为1min,5min,15min,30min,hour,day,week</td>
-  </tr>
-  <tr>
-    <td>size</td>
-    <td>返回成交数的条数</td>
-  </tr>
-</table>
+| 参数     | 描述                                       |
+| ------ | ---------------------------------------- |
+| symbol | 市场名称                                     |
+| type   | 分时参数，可以为1min,5min,15min,30min,hour,day,week |
+| size   | 返回成交数的条数                                 |
 
 ---
 ## 交易对信息接口
 
 Get /api/v1/trades  获取交易对信息数据
 
-https://www.xxx.com/api/v1/exchangeInfo
+https://www.zt.com/api/v1/exchangeInfo
 
 ### 示例
 ```
 # Request 
-GET https://www.xxx.com/api/v1/exchangeInfo
+GET https://www.zt.com/api/v1/exchangeInfo
 # Response
 [
     {
@@ -261,8 +233,6 @@ GET https://www.xxx.com/api/v1/exchangeInfo
 ---
 # 交易API private
 
-私有api有频率限制，目前频率限制为10次/s
-
 所有的参数都需要使用form-data的形式提交数据，接口都为POST形式
 交易api需要进行验签
 除了sign参数外所有的参数都必须进行签名，所有参数必须根据字母表按照参数名进行排序
@@ -283,12 +253,12 @@ MD5签名
 
 POST /api/v1/private/user  获取用户资产数据
 
-https://www.xxx.com/api/v1/private/user
+https://www.zt.com/api/v1/private/user
 
 ### 示例
 ```
 # Request 
-POST https://www.xxx.com/api/v1/private/user
+POST https://www.zt.com/api/v1/private/user
 # Response
 {
   "code": 0,
@@ -351,12 +321,12 @@ POST https://www.xxx.com/api/v1/private/user
 
 POST /api/v1/private/trade/limit  用户限价交易
 
-https://www.xxx.com/api/v1/private/trade/limit
+https://www.zt.com/api/v1/private/trade/limit
 
 ### 示例
 ```
 # Request 
-POST https://www.xxx.com/api/v1/private/trade/limit
+POST https://www.zt.com/api/v1/private/trade/limit
 # Response
 {
   "code": 0,
@@ -406,40 +376,26 @@ POST https://www.xxx.com/api/v1/private/trade/limit
 ```
 
 ### 请求参数
-<table>
-  <tr>
-    <th>参数</th>
-    <th>描述</th>
-  </tr>
-  <tr>
-    <td>market</td>
-    <td>市场名称</td>
-  </tr>
-  <tr>
-    <td>side</td>
-    <td>1为ASK卖出，2为BID买入</td>
-  </tr>
-  <tr>
-    <td>amount</td>
-    <td>数量</td>
-  </tr>
-  <tr>
-    <td>price</td>
-    <td>价格</td>
-  </tr>
-</table>
+| 参数     | 描述              |
+| ------ | --------------- |
+| market | 市场              |
+| side   | 1为ASK卖出，2为BID买入 |
+| amount | 数量              |
+| price  | 价格              |
+
+
 
 ---
 ## 用户市价交易接口
 
 POSTs /api/v1/private/trade/market  用户市价交易
 
-https://www.xxx.com/api/v1/private/trade/market
+https://www.zt.com/api/v1/private/trade/market
 
 ### 示例
 ```
 # Request 
-POST https://www.xxx.com/api/v1/private/trade/market
+POST https://www.zt.com/api/v1/private/trade/market
 # Response
 {
   "code": 0,
@@ -476,49 +432,40 @@ POST https://www.xxx.com/api/v1/private/trade/market
     deal_stock: 成交资产
     id: 编号
     left: 剩余
-    maker_fee: maker手续费
+    maker_fee: maker手续费
     market: 市场名
     mtime: 发布到市场时间
     price: 价格
     side: 1为ASK卖出，2为BID买入
-    source:来源
-    taker_fee: taker手续费
+    source:来源
+    taker_fee: taker手续费
     type: 交易类型，1为限价，2为市价
     user: 用户编号
 ]
 ```
 
 ### 请求参数
-<table>
-  <tr>
-    <th>参数</th>
-    <th>描述</th>
-  </tr>
-  <tr>
-    <td>market</td>
-    <td>市场名称</td>
-  </tr>
-  <tr>
-    <td>side</td>
-    <td>1为ASK卖出，2为BID买入</td>
-  </tr>
-  <tr>
-    <td>amount</td>
-    <td>数量</td>
-  </tr>
-</table>
+
+| 参数     | 描述              |
+| ------ | --------------- |
+| market | 市场              |
+| side   | 1为ASK卖出，2为BID买入 |
+| amount | 数量              |
+|        |                 |
+
+
 
 ---
 ## 用户取消交易接口
 
 POSTs /api/v1/private/trade/cancel  用户取消交易
 
-https://www.xxx.com/api/v1/private/trade/cancel
+https://www.zt.com/api/v1/private/trade/cancel
 
 ### 示例
 ```
 # Request 
-POST https://www.xxx.com/api/v1/private/trade/cancel
+POST https://www.zt.com/api/v1/private/trade/cancel
 # Response
 {
   "code": 0,
@@ -568,32 +515,22 @@ POST https://www.xxx.com/api/v1/private/trade/cancel
 ```
 
 ### 请求参数
-<table>
-  <tr>
-    <th>参数</th>
-    <th>描述</th>
-  </tr>
-  <tr>
-    <td>market</td>
-    <td>市场名称</td>
-  </tr>
-  <tr>
-    <td>order_id</td>
-    <td>订单编号</td>
-  </tr>
-</table>
+| 参数       | 描述   |
+| -------- | ---- |
+| market   | 市场名称 |
+| order_id | 订单编号 |
 
 ---
 ## 查询订单成交接口
 
 POSTs /api/v1/private/order/deals  查询订单成交
 
-https://www.xxx.com/api/v1/private/order/deals
+https://www.zt.com/api/v1/private/order/deals
 
 ### 示例
 ```
 # Request 
-POST https://www.xxx.com/api/v1/private/order/deals
+POST https://www.zt.com/api/v1/private/order/deals
 # Response
 {
   "code": 0,
@@ -636,36 +573,25 @@ user: 用户编号
 ```
 
 ### 请求参数
-<table>
-  <tr>
-    <th>参数</th>
-    <th>描述</th>
-  </tr>
-  <tr>
-    <td>order_id</td>
-    <td>订单编号</td>
-  </tr>
-  <tr>
-    <td>offset</td>
-    <td>偏移</td>
-  </tr>
-  <tr>
-    <td>limit</td>
-    <td>限制值</td>
-  </tr>
-</table>
+| 参数       | 描述   |
+| -------- | ---- |
+| order_id | 订单编号 |
+| offset   | 偏移   |
+| limit    | 限制值  |
+
+
 
 ---
 ## 查询用户未成交接口
 
 POSTs /api/v1/private/order/pending  查询用户未成交
 
-https://www.xxx.com/api/v1/private/order/pending
+https://www.zt.com/api/v1/private/order/pending
 
 ### 示例
 ```
 # Request 
-POST https://www.xxx.com/api/v1/private/order/pending
+POST https://www.zt.com/api/v1/private/order/pending
 # Response
 {
   "code": 0,
@@ -722,99 +648,12 @@ POST https://www.xxx.com/api/v1/private/order/pending
 ```
 
 ### 请求参数
-<table>
-  <tr>
-    <th>参数</th>
-    <th>描述</th>
-  </tr>
-  <tr>
-    <td>market</td>
-    <td>市场</td>
-  </tr>
-  <tr>
-    <td>offset</td>
-    <td>偏移</td>
-  </tr>
-  <tr>
-    <td>limit</td>
-    <td>限制值</td>
-  </tr>
-</table>
+| 参数     | 描述   |
+| ------ | ---- |
+| market | 市场   |
+| offset | 偏移   |
+| limit  | 限制值  |
 
----
-## 查询用户未成交详情接口
-
-POSTs /api/v1/private/order/pending/detail  查询用户未成交详情
-
-https://www.xxx.com/api/v1/private/order/pending/detail
-
-### 示例
-```
-# Request 
-POST https://www.xxx.com/api/v1/private/order/pending/detail
-# Response
-{
-  "code": 0,
-  "message": "操作成功",
-  "result": {
-    "amount": "1",
-    "ctime": 1535544362.168106,
-    "deal_fee": "0",
-    "deal_money": "0",
-    "deal_stock": "0",
-    "id": 32871,
-    "left": "1",
-    "maker_fee": "0.001",
-    "market": "BTC_USDT",
-    "mtime": 1535544362.168106,
-    "price": "5.1",
-    "side": 2,
-    "source": "web,1",
-    "taker_fee": "0.001",
-    "type": 1,
-    "user": 670865
-  }
-}
-```
-
-### 返回数据
-
-```
-[
-    amount: 数量
-    ctime: 创建时间
-    deal_fee: 成交手续费
-    deal_money: 成交金额
-    deal_stock: 成交资产
-    id: 编号
-    left: 剩余
-    maker_fee: maker手续费
-    market: 市场名
-    mtime: 发布到市场时间
-    price: 价格
-    side: 1为ASK卖出，2为BID买入
-    source:来源
-    taker_fee: taker手续费
-    type: 交易类型，1为限价，2为市价
-    user: 用户编号
-]
-```
-
-### 请求参数
-<table>
-  <tr>
-    <th>参数</th>
-    <th>描述</th>
-  </tr>
-  <tr>
-    <td>market</td>
-    <td>市场</td>
-  </tr>
-  <tr>
-    <td>order_id</td>
-    <td>订单编号</td>
-  </tr>
-</table>
 
 
 ---
@@ -822,12 +661,12 @@ POST https://www.xxx.com/api/v1/private/order/pending/detail
 
 POSTs /api/v1/private/order/finished  查询用户已成交
 
-https://www.xxx.com/api/v1/private/order/finished
+https://www.zt.com/api/v1/private/order/finished
 
 ### 示例
 ```
 # Request 
-POST https://www.xxx.com/api/v1/private/order/finished
+POST https://www.zt.com/api/v1/private/order/finished
 # Response
 {
   "code": 0,
@@ -899,108 +738,14 @@ POST https://www.xxx.com/api/v1/private/order/finished
 ```
 
 ### 请求参数
-<table>
-  <tr>
-    <th>参数</th>
-    <th>描述</th>
-  </tr>
-  <tr>
-    <td>market</td>
-    <td>市场</td>
-  </tr>
-  <tr>
-    <td>start_time</td>
-    <td>开始时间，以秒计数的时间戳，不限为0</td>
-  </tr>
-  <tr>
-    <td>end_time</td>
-    <td>结束时间，以秒计数的时间戳，不限为0</td>
-  </tr>
-  <tr>
-    <td>offset</td>
-    <td>偏移</td>
-  </tr>
-  <tr>
-    <td>limit</td>
-    <td>限制</td>
-  </tr>
-  <tr>
-    <td>side</td>
-    <td>1为ASK卖出，2为BID买入,不限为0</td>
-  </tr>
-</table>
+| 参数         | 描述                   |
+| ---------- | -------------------- |
+| market     | 市场                   |
+| start_time | 结束时间，以秒计数的时间戳，不限为0   |
+| end_time   | 结束时间，以秒计数的时间戳，不限为0   |
+| offset     | 偏移                   |
+| limit      | 限制                   |
+| side       | 1为ASK卖出，2为BID买入,不限为0 |
 
----
-## 查询用户已成交详情接口
 
-POSTs /api/v1/private/order/finished/detail  查询用户未成交详情
 
-https://www.xxx.com/api/v1/private/order/finished/detail
-
-### 示例
-```
-# Request 
-POST https://www.xxx.com/api/v1/private/order/finished/detail
-# Response
-{
-  "code": 0,
-  "message": "操作成功",
-  "result": {
-    "amount": "1",
-    "ctime": 1535544362.168106,
-    "deal_fee": "0",
-    "deal_money": "0",
-    "deal_stock": "0",
-    "id": 32871,
-    "left": "1",
-    "maker_fee": "0.001",
-    "market": "BTC_USDT",
-    "mtime": 1535544362.168106,
-    "price": "5.1",
-    "side": 2,
-    "source": "web,1",
-    "taker_fee": "0.001",
-    "type": 1,
-    "user": 670865
-  }
-}
-```
-
-### 返回数据
-
-```
-[
-    amount: 数量
-    ctime: 创建时间
-    deal_fee: 成交手续费
-    deal_money: 成交金额
-    deal_stock: 成交资产
-    id: 编号
-    left: 剩余
-    maker_fee: maker手续费
-    market: 市场名
-    mtime: 发布到市场时间
-    price: 价格
-    side: 1为ASK卖出，2为BID买入
-    source:来源
-    taker_fee: taker手续费
-    type: 交易类型，1为限价，2为市价
-    user: 用户编号
-]
-```
-
-### 请求参数
-<table>
-  <tr>
-    <th>参数</th>
-    <th>描述</th>
-  </tr>
-  <tr>
-    <td>market</td>
-    <td>市场</td>
-  </tr>
-  <tr>
-    <td>order_id</td>
-    <td>订单编号</td>
-  </tr>
-</table>
