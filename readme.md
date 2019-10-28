@@ -246,7 +246,7 @@ GET https://www.zt.com/api/v1/exchangeInfo
 # 交易API private
 
 所有的参数都需要使用form-data的形式提交数据，接口都为POST形式
-交易api需要进行验签
+交易api需要进行验签
 除了sign参数外所有的参数都必须进行签名，所有参数必须根据字母表按照参数名进行排序
 举例，如果请求的参数是
 ```
@@ -258,7 +258,7 @@ amount=1.0&api_key=c821db84-6fbd-11e4-a9e3-c86000d26d7c&price=680&side=1&symbol=
 
 MD5签名
 生成MD5签名必须要secretKey,在以上生成的字符串后面添加secret_key以生成最终的字符串，例如amount=1.0&api_key=c821db84-6fbd-11e4-a9e3-c86000d26d7c&price=680&side=1&symbol=BTC_USDT&secret_key=secretKey
-注意: '&secret_key=secretKey'必填. 使用32bit的MD5加密字符串，将生成的签名传到sign参数，生成的加密字符串必须大写
+注意: '&secret_key=secretKey'必填. 使用32bit的MD5加密字符串，将生成的签名传到sign参数，生成的加密字符串必须大写
 
 ---
 ## 获取用户资产
@@ -386,13 +386,13 @@ POST https://www.zt.com/api/v1/private/trade/limit
     deal_stock: 成交资产
     id: 编号
     left: 剩余
-    maker_fee: maker手续费
+    maker_fee: maker手续费
     market: 市场名
     mtime: 发布到市场时间
     price: 价格
     side: 1为ASK卖出，2为BID买入
-    source:来源
-    taker_fee: taker手续费
+    source:来源
+    taker_fee: taker手续费
     type: 交易类型，1为限价，2为市价
     user: 用户编号
 ]
@@ -730,13 +730,13 @@ POST https://www.zt.com/api/v1/private/order/pending
     deal_stock: 成交资产
     id: 编号
     left: 剩余
-    maker_fee: maker手续费
+    maker_fee: maker手续费
     market: 市场名
     mtime: 发布到市场时间
     price: 价格
     side: 1为ASK卖出，2为BID买入
-    source:来源
-    taker_fee: taker手续费
+    source:来源
+    taker_fee: taker手续费
     type: 交易类型，1为限价，2为市价
     user: 用户编号
 ]
@@ -898,13 +898,13 @@ POST https://www.zt.com/api/v1/private/order/finished
     deal_stock: 成交资产
     id: 编号
     left: 剩余
-    maker_fee: maker手续费
+    maker_fee: maker手续费
     market: 市场名
     ftime: 完成时间
     price: 价格
     side: 1为ASK卖出，2为BID买入
-    source:来源
-    taker_fee: taker手续费
+    source:来源
+    taker_fee: taker手续费
     type: 交易类型，1为限价，2为市价
     user: 用户编号
 ]
@@ -979,8 +979,8 @@ POST https://www.zt.com/api/v1/private/order/finished/detail
     ftime: 完成时间
     price: 价格
     side: 1为ASK卖出，2为BID买入
-    source:来源
-    taker_fee: taker手续费
+    source:来源
+    taker_fee: taker手续费
     type: 交易类型，1为限价，2为市价
     user: 用户编号
 ]
