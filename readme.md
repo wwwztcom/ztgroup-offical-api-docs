@@ -1,22 +1,78 @@
+# ZT OPEN API
 
 
-# 行情API
+- [**入门指引**](#入门指引)
+  - [**创建API Key**](#创建api-key)
+  - [**接口调用方式说明**](#接口调用方式说明)
+  - [**服务器**](#服务器)
 
-行情api包括私有api都需要在http request请求的header中添加 X-SITE-ID 字段，该字段的值为”1“。该字段不用做签名校验。
+- [**REST API**](#rest-api)
+  - [**接入 URL**](#接入-url)
+   - [**！！注意！！**](#注意)
+  - [**获取交易所市场数据**](#获取交易所市场数据)
+  - [**获取深度信息**](#获取深度信息)
+  - [**获取最新成交记录**](#获取最新成交记录)
+  - [**获取K线信息**](#获取K线信息)
+  - [**获取交易对信息**](#获取交易对信息)
+  - [**签名认证**](#签名认证)
+  - [**获取用户资产**](#获取用户资产)
+  - [**限价交易**](#限价交易)
+  - [**市价交易**](#市价交易)
+  - [**取消某个委托订单**](#取消某个委托订单)
+  - [**批量取消委托订单**](#批量取消委托订单)
+  - [**查询订单成交接口**](#查询订单成交接口)
+  - [**查询未成交订单**](#查询未成交订单)
+  - [**查询某个未成交订单详情**](#查询某个未成交订单详情)
+  - [**查询已成交订单接口**](#查询已成交订单接口)
+  - [**查询某个已成交订单详情**](#查询某个已成交订单详情)
+
+## 入门指引
+
+**欢迎使用开发者文档，ZT提供了简单易用的API接口，通过API可以获取市场行情数据、进行交易、管理订单**
+
+### 创建API Key
+
+用户在 **[ZT](https://www.zt.com)** 注册账号后，需要在[API管理]中创建API Key秘钥，创建完成后得到一组随机生成的API Key与Secret Key,利用这一组数据可以进行程序化交易，单个账号最多创建5个密钥
+
+> **请不要泄露API Key 与 Secret Key信息，以免造成资产损失,建议用户为API绑定IP地址，每个密钥最多绑定5个IP，使用英文逗号进行分隔**
+
+### 接口调用方式说明
+
+- REST API
+
+  提供行情查询、余额查询、币币交易、订单管理功能，建议用户使用REST API进行账户余额查询、币币交易及订单管理等操作
+
+### 服务器
+
+- ZT服务器运行在东京，为了最大限度地减少API访问延迟，建议使用与东京通讯通畅的服务器
+
+
+## REST API
+
+### 接入 URL
+
+- [https://www.zt.com](https://www.zt.com) 
+
+### 注意
+
+- 所有接口请求（公共和私有接口）都必须在Request请求的Header中添加 X-SITE-ID 字段，该字段的值为”1“。该字段不用做签名校验。
+
+
+# 行情API 公共接口
 
 ## 获取交易所市场数据
 
-Get /api/v1/tickers  获取价格数据
+Get  /api/v1/tickers  
 
 频率限制：20次/s
 
-https://www.zt.com/api/v1/tickers
-
 ### 示例
+
 ```
-# Request 
+Request:
 GET https://www.zt.com/api/v1/tickers
-# Response
+
+Response:
 {
     "ticker":[
         {
@@ -42,30 +98,37 @@ GET https://www.zt.com/api/v1/tickers
 }
 ```
 
-### 返回数据
-
-    timestamp: 服务端时间戳
-    buy: 最佳BID
-    high: 最高价
-    last: 最新价
-    low: 最低价
-    sell: 最佳ASK
-    vol: 成交量 (24小时交易量)
-
+### 返回数据说明
+```
+timestamp: 服务端时间戳
+buy: 最佳BID
+high: 最高价
+last: 最新价
+low: 最低价
+sell: 最佳ASK
+vol: 成交量 (24小时交易量)
+```
 ---
+
 ## 获取深度信息
 
-Get /api/v1/depth  获取深度数据
+Get /api/v1/depth 
 
 频率限制：20次/s
 
-https://www.zt.com/api/v1/depth
+### 请求参数
+
+| 参数     | 描述      |
+| ------ | ------- |
+| symbol | 市场名称    |
+| size   | 返回深度的条数 |
 
 ### 示例
 ```
-# Request 
+Request:
 GET https://www.zt.com/api/v1/depth?symbol=BTC_USDT&size=1
-# Response
+
+Response:
 {
     "asks":[
         ["0.387","43189.58824906"]
@@ -76,33 +139,32 @@ GET https://www.zt.com/api/v1/depth?symbol=BTC_USDT&size=1
 }
 ```
 
-### 返回数据
-    asks : ask深度[价格，数量]
-    bids : bid深度[价格，数量]
+### 返回数据说明
+```
+asks : ask深度[价格，数量]
+bids : bid深度[价格，数量]
+```
+---
+
+## 获取最新成交记录
+
+Get /api/v1/trades  
+
+频率限制：20次/s
 
 ### 请求参数
-
 | 参数     | 描述      |
 | ------ | ------- |
 | symbol | 市场名称    |
 | size   | 返回深度的条数 |
 
-
-
----
-## 获取最新成交记录
-
-Get /api/v1/trades  获取最新成交记录数据
-
-频率限制：20次/s
-
-https://www.zt.com/api/v1/trades
-
 ### 示例
+
 ```
-# Request 
+Request:
 GET https://www.zt.com/api/v1/trades?symbol=BTC_USDT&size=1
-# Response
+
+Response:
 [
     {
         "amount":"500",
@@ -119,34 +181,37 @@ GET https://www.zt.com/api/v1/trades?symbol=BTC_USDT&size=1
 ]
 ```
 
-### 返回数据
-    amount : 数量
-    price : 价格
-    side: 买入或者卖出
-    timestamp: 时间戳
-
-### 请求参数
-| 参数     | 描述      |
-| ------ | ------- |
-| symbol | 市场名称    |
-| size   | 返回深度的条数 |
-
-
+### 返回数据说明
+```
+amount : 数量
+price : 价格
+side: 买入或者卖出
+timestamp: 时间戳
+```
 
 ---
+
 ## 获取K线信息
 
-Get /api/v1/trades  获取最新成交记录数据
+Get /api/v1/kline  
 
 频率限制：20次/s
 
-https://www.zt.com/api/v1/kline
+### 请求参数
+
+| 参数     | 描述                                       |
+| ------ | ---------------------------------------- |
+| symbol | 市场名称                                     |
+| type   | 分时参数，可以为1min,5min,15min,30min,hour,day,week |
+| size   | 返回成交数的条数                                 |
 
 ### 示例
+
 ```
-# Request 
-GET https://www.zt.com/api/v1/kline?symbol=BTC_USDT&type=1min&size=100
-# Response
+Request:
+GET https://www.zt.com/api/v1/kline?symbol=BTC_USDT&type=1min&size=10
+
+Response:
 [
     [
         1535508060000,
@@ -172,43 +237,35 @@ GET https://www.zt.com/api/v1/kline?symbol=BTC_USDT&type=1min&size=100
         "0.401",
         "0"
     ]
+    ...
 ]
 ```
 
-### 返回数据
+### 返回数据说明
 
 ```
-[
-    1532655300000: 时间戳 
-    2370.16: 开
-    2380: 高
-    2352: 低
-    2367.37: 收 
-    17259.83: 交易量
-]
+1532655300000: 时间戳  
+2370.16: 开
+2380: 高
+2352: 低
+2367.37: 收 
+17259.83: 交易量
 ```
-
-### 请求参数
-| 参数     | 描述                                       |
-| ------ | ---------------------------------------- |
-| symbol | 市场名称                                     |
-| type   | 分时参数，可以为1min,5min,15min,30min,hour,day,week |
-| size   | 返回成交数的条数                                 |
 
 ---
+
 ## 获取交易对信息
 
-Get /api/v1/trades  获取交易对信息数据
+Get /api/v1/trades  
 
 频率限制：20次/s
 
-https://www.zt.com/api/v1/exchangeInfo
-
 ### 示例
 ```
-# Request 
+Request:
 GET https://www.zt.com/api/v1/exchangeInfo
-# Response
+
+Response:
 [
     {
         "baseAsset":"BTC",
@@ -229,51 +286,61 @@ GET https://www.zt.com/api/v1/exchangeInfo
 ]
 ```
 
-### 返回数据
+### 返回数据说明
 
 ```
-[
-    baseAsset: 基础货币 
-    baseAssetPrecision: 基础货币精度
-    quoteAsset: 计价货币
-    quoteAssetPrecision: 计价货币精度
-    status: 交易状态
-    symbol: 交易对
-]
+baseAsset: 基础货币 
+baseAssetPrecision: 基础货币精度
+quoteAsset: 计价货币
+quoteAssetPrecision: 计价货币精度
+status: 交易状态
+symbol: 交易对
+
 ```
 
 ---
-# 交易API private
+# 交易API 私有接口
 
-所有的参数都需要使用form-data的形式提交数据，接口都为POST形式
-交易api需要进行验签
-除了sign参数外所有的参数都必须进行签名，所有参数必须根据字母表按照参数名进行排序
-举例，如果请求的参数是
-```
-{'api_key':'c821db84-6fbd-11e4-a9e3-c86000d26d7c','sign':'5C263F54B613EEFE02BB596879D1DDF3','symbol':'BTC_USDT','side':1,'price':'50','amount':'0.02'}}")
-```
-amount=1.0&api_key=c821db84-6fbd-11e4-a9e3-c86000d26d7c&price=680&side=1&symbol=BTC_USDT
-字符串为:
-amount=1.0&api_key=c821db84-6fbd-11e4-a9e3-c86000d26d7c&price=680&side=1&symbol=BTC_USDT
+- 所有私有接口请求都使用POST方法，参数以form-data的形式提交
 
-MD5签名
-生成MD5签名必须要secretKey,在以上生成的字符串后面添加secret_key以生成最终的字符串，例如amount=1.0&api_key=c821db84-6fbd-11e4-a9e3-c86000d26d7c&price=680&side=1&symbol=BTC_USDT&secret_key=secretKey
-注意: '&secret_key=secretKey'必填. 使用32bit的MD5加密字符串，将生成的签名传到sign参数，生成的加密字符串必须大写
+## 签名认证
+
+- 所有的参数都必须进行签名验证，所有参数必须根据字母表按照参数名进行排序
+
+### 示例
+
+```
+请求参数：
+
+'market':'BTC_USDT',
+'side':1,
+'price':'50',
+'amount':'0.02'
+
+参数字符串:amount=33.33&api_key=apiKey&market=BTC_USDT&price=50&side=1
+
+注意:生成MD5签名必须要secretKey,在以上生成的字符串基础上添加secret_key以生成最终的字符串。
+
+最终签名字符串:amount=0.02&api_key=apiKey&market=BTC_USDT&price=50&side=1&secret_key=secretKey
+
+MD5签名：
+使用32bit的MD5加密字符串，生成的加密字符串必须大写
+```
 
 ---
 ## 获取用户资产
 
-POST /api/v1/private/user  获取用户资产数据
+POST /api/v1/private/user 
 
 频率限制：500次/min
 
-https://www.zt.com/api/v1/private/user
-
 ### 示例
+
 ```
-# Request 
+Request:
 POST https://www.zt.com/api/v1/private/user
-# Response
+
+Response:
 {
   "code": 0,
   "message": "操作成功",
@@ -315,42 +382,41 @@ POST https://www.zt.com/api/v1/private/user
 }
 ```
 
-### 返回数据
+###  返回数据说明
 
 ```
-[
-    available: 可用余额
-    freeze: 交易冻结金额
-    other_freeze: 其他冻结金额（包括C2C和提币冻结）
-    recharge_status: 充值状态0为不可充值，1为可充值
-    withdraw_fee: 提币手续费
-    withdraw_max: 最大提币金额
-    withdraw_min: 最小提币金额
-    withdraw_status: 提币状态0为不可提币，1为可提币
-]
+available: 可用余额
+freeze: 交易冻结金额
+other_freeze: 其他冻结金额（包括C2C和提币冻结）
+recharge_status: 充值状态0为不可充值，1为可充值
+withdraw_fee: 提币手续费
+withdraw_max: 最大提币金额
+withdraw_min: 最小提币金额
+withdraw_status: 提币状态0为不可提币，1为可提币
 ```
-
-### 请求参数
-
-| 参数      | 描述      |
-| ------- | ------- |
-| sign    | 签名      |
-| api_key | api_key |
 
 ---
 ## 限价交易
 
-POST /api/v1/private/trade/limit  用户限价交易
+POST /api/v1/private/trade/limit  
 
 频率限制：500次/min
 
-https://www.zt.com/api/v1/private/trade/limit
+### 请求参数
+
+| 参数     | 描述              |
+| ------ | --------------- |
+| market | 市场              |
+| side   | 1为ASK卖出，2为BID买入 |
+| amount | 数量              |
+| price  | 价格              |
 
 ### 示例
 ```
-# Request 
+Request:
 POST https://www.zt.com/api/v1/private/trade/limit
-# Response
+
+Response:
 {
   "code": 0,
   "message": "操作成功",
@@ -375,40 +441,26 @@ POST https://www.zt.com/api/v1/private/trade/limit
 }
 ```
 
-### 返回数据
+### 返回数据说明
 
 ```
-[
-    amount: 数量
-    ctime: 创建时间
-    deal_fee: 成交手续费
-    deal_money: 成交金额
-    deal_stock: 成交资产
-    id: 编号
-    left: 剩余
-    maker_fee: maker手续费
-    market: 市场名
-    mtime: 发布到市场时间
-    price: 价格
-    side: 1为ASK卖出，2为BID买入
-    source:来源
-    taker_fee: taker手续费
-    type: 交易类型，1为限价，2为市价
-    user: 用户编号
-]
+amount: 数量
+ctime: 创建时间
+deal_fee: 成交手续费
+deal_money: 成交金额
+deal_stock: 成交资产
+id: 编号
+left: 剩余
+maker_fee: maker手续费
+market: 市场名
+mtime: 发布到市场时间
+price: 价格
+side: 1为ASK卖出，2为BID买入
+source:来源
+taker_fee: taker手续费
+type: 交易类型，1为限价，2为市价
+user: 用户编号
 ```
-
-### 请求参数
-| 参数      | 描述              |
-| ------- | --------------- |
-| market  | 市场              |
-| side    | 1为ASK卖出，2为BID买入 |
-| amount  | 数量              |
-| price   | 价格              |
-| sign    | 签名              |
-| api_key | api_key         |
-
-
 
 ---
 ## 市价交易
@@ -417,13 +469,21 @@ POST /api/v1/private/trade/market  用户市价交易
 
 频率限制：500次/min
 
-https://www.zt.com/api/v1/private/trade/market
+### 请求参数
+
+| 参数     | 描述              |
+| ------ | --------------- |
+| market | 市场              |
+| side   | 1为ASK卖出，2为BID买入 |
+| amount | 数量              |
 
 ### 示例
+
 ```
-# Request 
+Request: 
 POST https://www.zt.com/api/v1/private/trade/market
-# Response
+
+Response:
 {
   "code": 0,
   "message": "操作成功",
@@ -448,55 +508,47 @@ POST https://www.zt.com/api/v1/private/trade/market
 }
 ```
 
-### 返回数据
+### 返回数据说明
 
 ```
-[
-    amount: 数量
-    ctime: 创建时间
-    deal_fee: 成交手续费
-    deal_money: 成交金额
-    deal_stock: 成交资产
-    id: 编号
-    left: 剩余
-    maker_fee: maker手续费
-    market: 市场名
-    mtime: 发布到市场时间
-    price: 价格
-    side: 1为ASK卖出，2为BID买入
-    source:来源
-    taker_fee: taker手续费
-    type: 交易类型，1为限价，2为市价
-    user: 用户编号
-]
+amount: 数量
+ctime: 创建时间
+deal_fee: 成交手续费
+deal_money: 成交金额
+deal_stock: 成交资产
+id: 编号
+left: 剩余
+maker_fee: maker手续费
+market: 市场名
+mtime: 发布到市场时间
+price: 价格
+side: 1为ASK卖出，2为BID买入
+source:来源
+taker_fee: taker手续费
+type: 交易类型，1为限价，2为市价
+user: 用户编号
 ```
-
-### 请求参数
-
-| 参数      | 描述              |
-| ------- | --------------- |
-| market  | 市场              |
-| side    | 1为ASK卖出，2为BID买入 |
-| amount  | 数量              |
-| sign    | 签名              |
-| api_key | api_key         |
-
-
 
 ---
 ## 取消某个委托订单
 
-POST /api/v1/private/trade/cancel  用户取消某个委托订单
+POST /api/v1/private/trade/cancel 
 
 频率限制：500次/min
 
-https://www.zt.com/api/v1/private/trade/cancel
+### 请求参数
+| 参数       | 描述   |
+| -------- | ---- |
+| market   | 市场名称 |
+| order_id | 订单编号 |
 
 ### 示例
+
 ```
-# Request 
+Request: 
 POST https://www.zt.com/api/v1/private/trade/cancel
-# Response
+
+Response:
 {
   "code": 0,
   "message": "操作成功",
@@ -521,52 +573,49 @@ POST https://www.zt.com/api/v1/private/trade/cancel
 }
 ```
 
-### 返回数据
+### 返回数据说明
 
 ```
-[
-    amount: 数量
-    ctime: 创建时间
-    deal_fee: 成交手续费
-    deal_money: 成交金额
-    deal_stock: 成交资产
-    id: 编号
-    left: 剩余
-    maker_fee: maker手续费
-    market: 市场名
-    mtime: 发布到市场时间
-    price: 价格
-    side: 1为ASK卖出，2为BID买入
-    source:来源
-    taker_fee: taker手续费
-    type: 交易类型，1为限价，2为市价
-    user: 用户编号
-]
+amount: 数量
+ctime: 创建时间
+deal_fee: 成交手续费
+deal_money: 成交金额
+deal_stock: 成交资产
+id: 编号
+left: 剩余
+maker_fee: maker手续费
+market: 市场名
+mtime: 发布到市场时间
+price: 价格
+side: 1为ASK卖出，2为BID买入
+source:来源
+taker_fee: taker手续费
+type: 交易类型，1为限价，2为市价
+user: 用户编号
 ```
-
-### 请求参数
-| 参数       | 描述      |
-| -------- | ------- |
-| market   | 市场名称    |
-| order_id | 订单编号    |
-| sign     | 签名      |
-| api_key  | api_key |
 
 ---
 ## 批量取消委托订单
 
-POST /api/v1/private/trade/cancel_batch 用户批量取消委托订单，每次批量取消委托订单数量不超过10个。
+POST /api/v1/private/trade/cancel_batch 每次批量取消委托订单数量不超过10个。
 
 频率限制：500次/min
 
-https://www.zt.com/api/v1/private/trade/cancel_batch
+### 请求参数
+
+| 参数         | 描述      |
+| ---------- | ------- |
+| order_json | 订单编号    |
+| sign       | 签名      |
+| api_key    | api_key |
 
 ### 示例
 
 ```
-# Request 
+Request:
 POST https://www.zt.com/api/v1/private/trade/cancel_batch
-# Response
+
+Response:
 {
   "code": 0,
   "message": "操作成功",
@@ -590,7 +639,7 @@ POST https://www.zt.com/api/v1/private/trade/cancel_batch
 }
 ```
 
-### 返回数据
+### 返回数据说明
 
 ```
 market: 市场
@@ -598,25 +647,20 @@ order_id: 订单编号
 result: 取消结果(true 表示取消成功，false 表示取消失败)
 ```
 
-### 请求参数
-
-| 参数         | 描述      |
-| ---------- | ------- |
-| order_json | 订单编号    |
-| sign       | 签名      |
-| api_key    | api_key |
-
-
-
 ------
-
 ## 查询订单成交接口
 
-POST /api/v1/private/order/deals  查询订单成交
+POST /api/v1/private/order/deals 
 
 频率限制：500次/min
 
-https://www.zt.com/api/v1/private/order/deals
+### 请求参数
+
+| 参数       | 描述   |
+| -------- | ---- |
+| order_id | 订单编号 |
+| offset   | 偏移   |
+| limit    | 限制值  |
 
 ### 示例
 ```
@@ -646,7 +690,7 @@ POST https://www.zt.com/api/v1/private/order/deals
 }
 ```
 
-### 返回数据
+### 返回数据说明
 
 ```
 limit: 限制
@@ -663,25 +707,21 @@ time: 时间戳
 user: 用户编号
 ```
 
-### 请求参数
-| 参数       | 描述      |
-| -------- | ------- |
-| order_id | 订单编号    |
-| offset   | 偏移      |
-| limit    | 限制值     |
-| sign     | 签名      |
-| api_key  | api_key |
-
-
-
 ---
 ## 查询未成交订单
 
-POST /api/v1/private/order/pending  查询用户未成交
+POST /api/v1/private/order/pending  
 
 频率限制：500次/min
 
-https://www.zt.com/api/v1/private/order/pending
+### 请求参数
+
+| 参数     | 描述   |
+| ------ | ---- |
+| market | 市场   |
+| offset | 偏移   |
+| limit  | 限制值  |
+
 
 ### 示例
 ```
@@ -719,56 +759,47 @@ POST https://www.zt.com/api/v1/private/order/pending
 }
 ```
 
-### 返回数据
+### 返回数据说明
 
 ```
-[
-    amount: 数量
-    ctime: 创建时间
-    deal_fee: 成交手续费
-    deal_money: 成交金额
-    deal_stock: 成交资产
-    id: 编号
-    left: 剩余
-    maker_fee: maker手续费
-    market: 市场名
-    mtime: 发布到市场时间
-    price: 价格
-    side: 1为ASK卖出，2为BID买入
-    source:来源
-    taker_fee: taker手续费
-    type: 交易类型，1为限价，2为市价
-    user: 用户编号
-]
+amount: 数量
+ctime: 创建时间
+deal_fee: 成交手续费
+deal_money: 成交金额
+deal_stock: 成交资产
+id: 编号
+left: 剩余
+maker_fee: maker手续费
+market: 市场名
+mtime: 发布到市场时间
+price: 价格
+side: 1为ASK卖出，2为BID买入
+source:来源
+taker_fee: taker手续费
+type: 交易类型，1为限价，2为市价
+user: 用户编号
 ```
-
-### 请求参数
-| 参数      | 描述      |
-| ------- | ------- |
-| market  | 市场      |
-| offset  | 偏移      |
-| limit   | 限制值     |
-| sign    | 签名      |
-| api_key | api_key |
-
-
 
 ------
-
 ## 查询某个未成交订单详情
 
-POST /api/v1/private/order/pending/detail  查询用户未成交订单详情
+POST /api/v1/private/order/pending/detail  
 
 频率限制：500次/min
 
-https://www.zt.com/api/v1/private/order/pending/detail
+### 请求参数
+
+| 参数       | 描述   |
+| -------- | ---- |
+| market   | 市场   |
+| Order_id | 订单号  |
 
 ### 示例
-
 ```
-# Request 
+Request:
 POST https://www.zt.com/api/v1/private/order/pending/detail
-# Response
+
+Response:
 {
   "code": 0,
   "message": "操作成功",
@@ -793,54 +824,51 @@ POST https://www.zt.com/api/v1/private/order/pending/detail
 }
 ```
 
-### 返回数据
+### 返回数据说明
 
-```go
-[
-    amount: 数量
-    ctime: 创建时间
-    deal_fee: 成交手续费
-    deal_money: 成交金额
-    deal_stock: 成交资产
-    id: 编号
-    left: 剩余
-    maker_fee: maker手续费
-    market: 市场名
-    ftime: 发布到市场时间
-    price: 价格
-    side: 1为ASK卖出，2为BID买入
-    source:来源
-    taker_fee: taker手续费
-    type: 交易类型，1为限价，2为市价
-    user: 用户编号
-]
 ```
-
-### 请求参数
-
-| 参数       | 描述      |
-| -------- | ------- |
-| market   | 市场      |
-| Order_id | 订单号     |
-| sign     | 签名      |
-| api_key  | Api_key |
-
-
+amount: 数量
+ctime: 创建时间
+deal_fee: 成交手续费
+deal_money: 成交金额
+deal_stock: 成交资产
+id: 编号
+left: 剩余
+maker_fee: maker手续费
+market: 市场名
+ftime: 发布到市场时间
+price: 价格
+side: 1为ASK卖出,2为BID买入
+source: 来源
+taker_fee: taker手续费
+type: 交易类型,1为限价,2为市价
+user: 用户编号
+```
 
 ---
 ## 查询已成交订单接口
 
-POST /api/v1/private/order/finished  查询用户已成交
+POST /api/v1/private/order/finished 
 
 频率限制：500次/min
 
-https://www.zt.com/api/v1/private/order/finished
+### 请求参数
+
+| 参数         | 描述                   |
+| ---------- | -------------------- |
+| market     | 市场                   |
+| start_time | 结束时间，以秒计数的时间戳，不限为0   |
+| end_time   | 结束时间，以秒计数的时间戳，不限为0   |
+| offset     | 偏移                   |
+| limit      | 限制                   |
+| side       | 1为ASK卖出，2为BID买入,不限为0 |
 
 ### 示例
 ```
-# Request 
+Request: 
 POST https://www.zt.com/api/v1/private/order/finished
-# Response
+
+Response:
 {
   "code": 0,
   "message": "操作成功",
@@ -887,59 +915,47 @@ POST https://www.zt.com/api/v1/private/order/finished
 }
 ```
 
-### 返回数据
+### 返回数据说明
 
+``` 
+amount: 数量
+ctime: 创建时间
+deal_fee: 成交手续费
+deal_money: 成交金额
+deal_stock: 成交资产
+id: 编号
+left: 剩余
+maker_fee: maker手续费
+market: 市场名
+ftime: 完成时间
+price: 价格
+side: 1为ASK卖出，2为BID买入
+source:来源
+taker_fee: taker手续费
+type: 交易类型，1为限价，2为市价
+user: 用户编号
 ```
-[
-    amount: 数量
-    ctime: 创建时间
-    deal_fee: 成交手续费
-    deal_money: 成交金额
-    deal_stock: 成交资产
-    id: 编号
-    left: 剩余
-    maker_fee: maker手续费
-    market: 市场名
-    ftime: 完成时间
-    price: 价格
-    side: 1为ASK卖出，2为BID买入
-    source:来源
-    taker_fee: taker手续费
-    type: 交易类型，1为限价，2为市价
-    user: 用户编号
-]
-```
-
-### 请求参数
-| 参数         | 描述                   |
-| ---------- | -------------------- |
-| market     | 市场                   |
-| start_time | 结束时间，以秒计数的时间戳，不限为0   |
-| end_time   | 结束时间，以秒计数的时间戳，不限为0   |
-| offset     | 偏移                   |
-| limit      | 限制                   |
-| side       | 1为ASK卖出，2为BID买入,不限为0 |
-| sign       | 签名                   |
-| api_key    | Api_key              |
-
-
 
 ------
-
 ## 查询某个已成交订单详情
 
-POST /api/v1/private/order/finished/detail  查询用户已成交
+POST /api/v1/private/order/finished/detail 
 
 频率限制：500次/min
 
-https://www.zt.com/api/v1/private/order/finished/detail
+### 请求参数
+
+| 参数       | 描述   |
+| -------- | ---- |
+| order_id | 订单号  |
 
 ### 示例
 
 ```
-# Request 
+Request:
 POST https://www.zt.com/api/v1/private/order/finished/detail
-# Response
+
+Response:
 {
   "code": 0,
   "message": "操作成功",
@@ -963,34 +979,25 @@ POST https://www.zt.com/api/v1/private/order/finished/detail
 }
 ```
 
-### 返回数据
+### 返回数据说明
 
 ```
-[
-    amount: 数量
-    ctime: 创建时间
-    deal_fee: 成交手续费
-    deal_money: 成交金额
-    deal_stock: 成交资产
-    id: 编号
-    left: 剩余
-    maker_fee: maker手续费
-    market: 市场名
-    ftime: 完成时间
-    price: 价格
-    side: 1为ASK卖出，2为BID买入
-    source:来源
-    taker_fee: taker手续费
-    type: 交易类型，1为限价，2为市价
-    user: 用户编号
-]
+amount: 数量
+ctime: 创建时间
+deal_fee: 成交手续费
+deal_money: 成交金额
+deal_stock: 成交资产
+id: 编号
+left: 剩余
+maker_fee: maker手续费
+market: 市场名
+ftime: 完成时间
+price: 价格
+side: 1为ASK卖出，2为BID买入
+source:来源
+taker_fee: taker手续费
+type: 交易类型，1为限价，2为市价
+user: 用户编号
 ```
 
-### 请求参数
-
-| 参数       | 描述      |
-| -------- | ------- |
-| order_id | 订单号     |
-| sign     | 签名      |
-| api_key  | Api_key |
 
