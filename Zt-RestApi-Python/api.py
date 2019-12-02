@@ -102,7 +102,7 @@ def cancel_order(params):
         "market": params.market,
     }
 
-    str_url = models.Host_Url + "/api/v1/private/order/cancel"
+    str_url = models.Host_Url + "/api/v1/private/trade/cancel"
     cancel_order_return = utils.http_post_request(str_url, params_dist)
 
     print(cancel_order_return)
