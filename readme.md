@@ -27,6 +27,18 @@
   - [**查询已成交订单接口**](#查询已成交订单接口)
   - [**查询某个已成交订单详情**](#查询某个已成交订单详情)
 
+- [**Websocket API**](#websocket-api)
+
+  - [**简介**](#简介) 
+  - [**市场状态(市场概要)**](#市场状态（市场概要）)
+  - [**今日市场状态**](#今日市场状态（市场概要）)
+  - [**K线数据**](#K线数据)
+  - [**市场深度行情数据**](#市场深度行情数据)
+  - [**市场最新价格数据**](#市场最新价格数据)
+  - [**最新成交数据**](#最新成交数据)
+
+  ​
+
 ## 入门指引
 
 **欢迎使用开发者文档，ZT提供了简单易用的API接口，通过API可以获取市场行情数据、进行交易、管理订单**
@@ -1032,4 +1044,747 @@ type: 交易类型，1为限价，2为市价
 user: 用户编号
 ```
 
+
+
+
+
+## Websocket API
+
+### 简介
+
+##### 接入URL
+
+wss://ws.zt.com/ws
+
+##### 请求格式
+
+- method: 请求方法，String
+- params: 参数，Array
+- id: 请求编号, Integer, 自定义随机数
+
+##### 响应格式
+
+- result: Json object，如果没有返回则为null
+- error: Json object，成功返回null,如果不成功返回非null
+
+1. code: 错误码
+2. message: 错误信息
+
+- id: 请求编号, Integer
+
+##### 通知格式
+
+- method: 请求方法，String
+- params: 参数，Array
+- id: Null
+
+##### 通用错误码:
+
+- 1: 参数不合法
+- 2: 内部错误
+- 3: 服务不可用
+- 4: 方法未找到
+- 5: 服务超时
+- 6: 需要授权
+
+##### 订阅主题
+
+成功建立与Websocket服务器的连接后，Websocket客户端发送如下请求以订阅特定主题：
+
+{"method":"method to sub","params":[request params],"id generate by client"}
+
+```json
+{
+  "method": "kline.subscribe",
+  "params": [
+    "BTC_USDT",
+    300
+  ],
+  "id": 10086
+}
+```
+
+
+
+##### 取消订阅
+
+Websocket订阅特定主题后，如需取消订阅，Websocket客户端发送如下请求取消订阅：
+
+{"method":"method to unsubscribe"}
+
+```json
+{
+  "method": "kline.unsubscribe"
+}
+```
+
+
+
+##### 查询数据
+
+Websocket服务器同时支持一次性请求数据（pull）。
+
+请求数据的格式如下：
+
+{"method":"method to qurey","params":[request params],"id generate by client"}
+
+```json
+{
+  "method": "kline.qurey",
+  "params": [
+    "BTC_USDT",
+    1575561600,
+    1575648000,
+    300
+  ],
+  "id": 10086
+}
+```
+
+
+
+## 市场状态（市场概要）
+
+##### 主题订阅
+
+此主题发送市场最新市场状态。
+
+```json
+{"method":"state.subscribe","params":[$market$],"id":10086}
+```
+
+| 参数     | 数据类型   | 是否必需 | 描述   | 取值范围                  |
+| ------ | ------ | ---- | ---- | --------------------- |
+| market | string | true | 市场名称 | BTC_USDT, ETH_USDT... |
+
+订阅请求
+
+```json
+{
+  "method": "state.subscribe",
+  "params": [
+    "BTC_USDT"
+  ],
+  "id": 10086
+}
+```
+
+Response
+
+```json
+{
+  "method": "state.update",
+  "params": [
+    "BTC_USDT",
+    {
+      "last": "7461.1526",
+      "volume": "15864.0388",
+      "deal": "119049215.80982165",
+      "period": 86400,
+      "high": "7553.5791",
+      "open": "7421.5379",
+      "low": "7414.7222",
+      "close": "7461.1526"
+    }
+  ],
+  "id": null
+}
+```
+
+##### 取消订阅
+
+```json
+{"method":"state.unsubscribe"}
+```
+
+##### 查询数据
+
+用请求方式一次性获取过去特定时间的市场状态数据.
+
+```json
+{"method":"state.query","params":[$market$,$period$],"id":10086}
+```
+
+| 参数     | 数据类型   | 是否必需 | 描述   |
+| ------ | ------ | ---- | ---- |
+| market | string | true | 市场名称 |
+| period | int    | true | 周期   |
+
+查询请求
+
+```json
+{
+  "method": "state.query",
+  "params": [
+    "BTC_USDT",
+    86400
+  ],
+  "id": 10086
+}
+```
+
+Response
+
+```json
+{
+  "error": null,
+  "result": {
+    "volume": "15952.03100501",
+    "period": 86400,
+    "deal": "119721963.749190401504",
+    "last": "7467.2656",
+    "open": "7431.0264",
+    "low": "7428.725",
+    "close": "7467.2656",
+    "high": "7553.5791"
+  },
+  "id": 10086
+}
+```
+
+
+
+## 今日市场状态（市场概要）
+
+##### 主题订阅
+
+此主题发送市场今日市场状态。
+
+```json
+{"method":"today.subscribe","params":[$market$],"id":10086}
+```
+
+| 参数     | 数据类型   | 是否必需 | 描述   | 取值范围                  |
+| ------ | ------ | ---- | ---- | --------------------- |
+| market | string | true | 市场名称 | BTC_USDT, ETH_USDT... |
+
+订阅请求
+
+```json
+{
+  "method": "today.subscribe",
+  "params": [
+    "BTC_USDT"
+  ],
+  "id": 10086
+}
+```
+
+Response
+
+```json
+{
+  "method": "today.update",
+  "params": [
+    "BTC_USDT",
+    {
+      "last": "7461.1526",
+      "volume": "15864.0388",
+      "deal": "119049215.80982165",
+      "period": 86400,
+      "high": "7553.5791",
+      "open": "7421.5379",
+      "low": "7414.7222",
+      "close": "7461.1526"
+    }
+  ],
+  "id": null
+}
+```
+
+##### 取消订阅
+
+```json
+{"method":"today.unsubscribe"}
+```
+
+##### 查询数据
+
+用请求方式一次性获取今日的市场状态数据.
+
+```json
+{"method":"today.query","params":[$market$],"id":10086}
+```
+
+| 参数     | 数据类型   | 是否必需 | 描述   |
+| ------ | ------ | ---- | ---- |
+| market | string | true | 市场名称 |
+
+查询请求
+
+```json
+ {
+  "method": "today.query",
+  "params": [
+    "BTC_USDT"
+  ],
+  "id": 10086
+}
+```
+
+Response
+
+```json
+{
+  "error": null,
+  "result": {
+    "open": "7525.3908",
+    "deal": "119600164.325722971504",
+    "last": "7466.2622",
+    "high": "7541.1691",
+    "low": "7444.7897",
+    "volume": "15935.75120501"
+  },
+  "id": 10086
+}
+```
+
+
+
+## K线数据
+
+##### 主题订阅
+
+此主题发送最新K线数据。
+
+```json
+{"method":"kline.subscribe","params":[$market$,$interval$],"id":10086}
+```
+
+| 参数       | 数据类型   | 是否必需 | 描述   | 取值范围                             |
+| -------- | ------ | ---- | ---- | -------------------------------- |
+| market   | string | true | 市场名称 | BTC_USDT, ETH_USDT...            |
+| interval | string | true | K线周期 | 60,300,900,1800,3600,7200,14400… |
+
+订阅请求
+
+```json
+{
+  "method": "kline.subscribe",
+  "params": [
+    "BTC_USDT", 	market
+    300   			interval
+  ],
+  "id": 10086		id
+}
+```
+
+Response
+
+```json
+{
+  "id": null,
+  "method": "kline.update",
+  "params": [
+    [
+      1575705900,           time
+      "7542.8082",  		open
+      "7534.9152", 			close
+      "7547.0765", 			high
+      "7530.8753", 			low
+      "70.7463", 			amount
+      "533428.87370982",	deal_money
+      "BTC_USDT" 			market
+    ]
+  ]
+}
+```
+
+##### 取消订阅
+
+```json
+{"method":"kline.unsubscribe"}
+```
+
+#####  
+
+##### 查询数据
+
+用请求方式一次性获取K线数据，需要额外提供以下参数： （每次最多返回xxx条）
+
+```json
+{"method":"kline.query","params":[$market$,$start$,$end$,$interval$],"id":10086}
+```
+
+| 参数    | 数据类型    | 是否必需  | 描述   |
+| ----- | ------- | ----- | ---- |
+| start | integer | false | 起始时间 |
+| end   | integer | false | 结束时间 |
+
+查询请求
+
+```json
+{
+  "method": "kline.query",
+  "params": [
+    "BTC_USDT",		market
+    1575561600,		start
+    1575648000,		end
+    300				interval
+  ],
+  "id": 10086		id
+}
+```
+
+Response
+
+```json
+{
+  "error": null,
+  "result": [
+    [
+      1575561600,		time
+      "7340.949",  		open
+      "7345.5655", 		close
+      "7357.0065", 		high
+      "7332.0522", 		low
+      "77.4528",		amount
+      "568870.6347857", deal_money
+      "BTC_USDT"		market
+    ],
+    [
+      1575561900,
+      "7346.2494",
+      "7333.1595",
+      "7350.2274",
+      "7329.8995",
+      "72.2238",
+      "530009.12444915",
+      "BTC_USDT"
+    ]
+    ...
+}
+```
+
+
+
+## 市场深度行情数据
+
+此主题发送最新深度行情数据。
+
+##### 主题订阅
+
+```json
+{"method":"depth.subscribe","params":[$market$,$limit$,$interval$],"id":10086}
+```
+
+| 参数       | 数据类型   | 是否必需 | 描述   | 取值范围                                     |
+| -------- | ------ | ---- | ---- | ---------------------------------------- |
+| market   | string | true | 市场名称 | BTC_USDT, ETH_USDT...                    |
+| limite   | int    | true | 数量   | 1, 5, 10, 20, 30, 50, 100                |
+| interval | string | true | 深度合并 | "0", "0.00000001", "0.0000001", "0.000001", "0.00001", "0.0001", "0.001", "0.01", "0.1" |
+
+订阅请求
+
+```json
+{
+  "method": "depth.subscribe",
+  "params": [
+    "BTC_USDT",
+    50,
+    "0.0001"
+  ],
+  "id": 10086
+}
+```
+
+Response
+
+```json
+{
+  "id": null,
+  "method": "depth.update",
+  "params": [
+    true,              true 表示完整深度列表，false 表示更新
+    {
+      "bids": [
+        [
+          "7457.1469"   price
+          "0.0026"    	amount
+        ],
+        [
+          "7457.137",
+          "0.0028"
+        ],
+        ...
+      ],
+      "asks": [
+        [
+          "7550.6256",
+          "0.2271"
+        ],
+        [
+          "7550.9482",
+          "0.0022"
+        ],
+        ...
+      ]
+    },
+    "BTC_USDT"
+  ]
+}
+```
+
+##### 取消订阅
+
+```json
+{"method":"depth.unsubscribe"}
+```
+
+#####  
+
+##### 查询数据
+
+用请求方式一次性获取深度数据
+
+```json
+{"method":"depth.query","params":[$market$,$limit$,$interval$],"id":10086}
+```
+
+| 参数       | 数据类型   | 是否必需 | 描述   | 取值范围                                     |
+| -------- | ------ | ---- | ---- | ---------------------------------------- |
+| market   | string | true | 市场名称 | BTC_USDT, ETH_USDT...                    |
+| limite   | int    | true | 数量   | 1, 5, 10, 20, 30, 50, 100                |
+| interval | string | true | 深度合并 | "0", "0.00000001", "0.0000001", "0.000001", "0.00001", "0.0001", "0.001", "0.01", "0.1" |
+
+查询请求
+
+```json
+{
+  "method": "depth.query",
+  "params": [
+    "BTC_USDT",
+    10,
+    "0.0001"
+  ],
+  "id": 10086
+}
+```
+
+Response
+
+```json
+{
+  "id": 10086,
+  "error": null,
+  "result": {
+    "asks": [
+      [
+        "7562.2075",
+        "0.0228"
+      ],
+      [
+        "7577.5392",
+        "0.001"
+      ],
+      ...
+    ],
+    "bids": [
+      [
+        "7477.9723",
+        "0.2047"
+      ],
+      [
+        "7477.9225",
+        "0.3294"
+      ],
+      ...
+    ]
+  }
+}
+```
+
+
+
+## 市场最新价格数据
+
+此主题发送市场最新价格。
+
+##### 主题订阅
+
+```json
+{"method":"price.subscribe","params":[$market$],"id":10086}
+```
+
+| 参数     | 数据类型     | 是否必需 | 描述   | 取值范围                     |
+| ------ | -------- | ---- | ---- | ------------------------ |
+| market | []string | true | 市场名称 | [BTC_USDT, ETH_USDT,...] |
+
+订阅请求
+
+```json
+{
+  "method": "price.subscribe",
+  "params": [
+    "BTC_USDT",
+  ],
+  "id": 10086
+}
+```
+
+Response
+
+```json
+{
+  "method": "price.update",
+  "params": [
+    "BTC_USDT",
+    "7514.2520"
+  ],
+  "id": null
+}
+```
+
+##### 取消订阅
+
+```json
+{"method":"price.unsubscribe"}
+```
+
+#####  
+
+##### 查询数据
+
+用请求方式一次性获取市场最新价格数据
+
+```json
+{"method":"price.query","params":[$market$],"id":10086}
+```
+
+| 参数     | 数据类型     | 是否必需 | 描述   | 取值范围                     |
+| ------ | -------- | ---- | ---- | ------------------------ |
+| market | []string | true | 市场名称 | [BTC_USDT, ETH_USDT,...] |
+
+查询请求
+
+```json
+{
+  "method": "price.query",
+  "params": [
+    "BTC_USDT"
+  ],
+  "id": 10086
+}
+```
+
+Response
+
+```json
+{
+  "error": null,
+  "result": "7482.0109",
+  "id": 10086
+}
+```
+
+
+
+## 最新成交数据
+
+此主题发送市场最新成交数据。
+
+##### 主题订阅
+
+```json
+{"method":"deals.subscribe","params":[$market$],"id":10086}
+```
+
+| 参数     | 数据类型   | 是否必需 | 描述   | 取值范围                     |
+| ------ | ------ | ---- | ---- | ------------------------ |
+| market | string | true | 市场名称 | [BTC_USDT, ETH_USDT,...] |
+
+订阅请求
+
+```json
+{
+  "method": "deals.subscribe",
+  "params": [
+    "BTC_USDT",
+  ],
+  "id": 10086
+}
+```
+
+Response
+
+```json
+{
+  "method": "deals.update",
+  "params": [
+    "BTC_USDT",
+    [
+      {
+        "id": 597933730,
+        "time": 1575876545.1941223,
+        "type": "sell",
+        "price": "7477.6154",
+        "amount": "0.1416"
+      }
+    ]
+  ],
+  "id": null
+}
+```
+
+##### 取消订阅
+
+```json
+{"method":"deals.unsubscribe"}
+```
+
+#####  
+
+##### 查询数据
+
+用请求方式一次性获取市场最新成交数据。
+
+```json
+{"method":"deals.query","params":[$market$,$limit$,$last_id$],"id":10086}
+```
+
+| 参数      | 数据类型   | 是否必需 | 描述          | 取值范围                      |
+| ------- | ------ | ---- | ----------- | ------------------------- |
+| market  | string | true | 市场名称        | BTC_USDT, ETH_USDT ...    |
+| limit   | int    | true | 数量          | 1, 5, 10, 20, 30, 50, 100 |
+| last_id | int    | true | 上次返回结果的最大id | 597967944                 |
+
+查询请求
+
+```json
+{
+  "method": "deals.query",
+  "params": [
+    "BTC_USDT",
+    10,
+    598129296
+  ],
+  "id": 10086
+}
+```
+
+Response
+
+```json
+{
+  "error": null,
+  "result": [
+    {
+      "id": 598136190,
+      "type": "sell",
+      "time": 1575881302.0342646,
+      "price": "7459.6875",
+      "amount": "0.1781"
+    },
+    {
+      "id": 598136185,
+      "type": "sell",
+      "time": 1575881301.876456,
+      "price": "7463.8087",
+      "amount": "0.2333"
+    },
+    ...
+  ],
+  "id": 10086
+}
+```
 
