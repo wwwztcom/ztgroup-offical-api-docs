@@ -1439,7 +1439,7 @@ Response
       "7357.0065", 		high
       "7332.0522", 		low
       "77.4528",		amount
-      "568870.6347857", deal_money
+      "568870.6347857", deal  成交额
       "BTC_USDT"		market
     ],
     [
