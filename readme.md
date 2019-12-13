@@ -1149,7 +1149,7 @@ Websocket服务器同时支持一次性请求数据（pull）。
 
 此主题发送市场最新市场状态。
 
-```json
+```
 {"method":"state.subscribe","params":[$market$],"id":10086}
 ```
 
