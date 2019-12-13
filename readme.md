@@ -1093,7 +1093,7 @@ wss://ws.zt.com/ws
 
 {"method":"method to sub","params":[request params],"id generate by client"}
 
-```json
+```
 {
   "method": "kline.subscribe",
   "params": [
@@ -1112,7 +1112,7 @@ Websocket订阅特定主题后，如需取消订阅，Websocket客户端发送�
 
 {"method":"method to unsubscribe"}
 
-```json
+```
 {
   "method": "kline.unsubscribe"
 }
@@ -1128,7 +1128,7 @@ Websocket服务器同时支持一次性请求数据（pull）。
 
 {"method":"method to qurey","params":[request params],"id generate by client"}
 
-```json
+```
 {
   "method": "kline.qurey",
   "params": [
@@ -1159,7 +1159,7 @@ Websocket服务器同时支持一次性请求数据（pull）。
 
 订阅请求
 
-```json
+```
 {
   "method": "state.subscribe",
   "params": [
@@ -1171,7 +1171,7 @@ Websocket服务器同时支持一次性请求数据（pull）。
 
 Response
 
-```json
+```
 {
   "method": "state.update",
   "params": [
@@ -1193,7 +1193,7 @@ Response
 
 ##### 取消订阅
 
-```json
+```
 {"method":"state.unsubscribe"}
 ```
 
@@ -1201,7 +1201,7 @@ Response
 
 用请求方式一次性获取过去特定时间的市场状态数据.
 
-```json
+```
 {"method":"state.query","params":[$market$,$period$],"id":10086}
 ```
 
@@ -1212,7 +1212,7 @@ Response
 
 查询请求
 
-```json
+```
 {
   "method": "state.query",
   "params": [
@@ -1225,7 +1225,7 @@ Response
 
 Response
 
-```json
+```
 {
   "error": null,
   "result": {
@@ -1250,7 +1250,7 @@ Response
 
 此主题发送市场今日市场状态。
 
-```json
+```
 {"method":"today.subscribe","params":[$market$],"id":10086}
 ```
 
@@ -1260,7 +1260,7 @@ Response
 
 订阅请求
 
-```json
+```
 {
   "method": "today.subscribe",
   "params": [
@@ -1272,7 +1272,7 @@ Response
 
 Response
 
-```json
+```
 {
   "method": "today.update",
   "params": [
@@ -1294,7 +1294,7 @@ Response
 
 ##### 取消订阅
 
-```json
+```
 {"method":"today.unsubscribe"}
 ```
 
@@ -1302,7 +1302,7 @@ Response
 
 用请求方式一次性获取今日的市场状态数据.
 
-```json
+```
 {"method":"today.query","params":[$market$],"id":10086}
 ```
 
@@ -1312,7 +1312,7 @@ Response
 
 查询请求
 
-```json
+```
  {
   "method": "today.query",
   "params": [
@@ -1324,7 +1324,7 @@ Response
 
 Response
 
-```json
+```
 {
   "error": null,
   "result": {
@@ -1347,7 +1347,7 @@ Response
 
 此主题发送最新K线数据。
 
-```json
+```
 {"method":"kline.subscribe","params":[$market$,$interval$],"id":10086}
 ```
 
@@ -1358,7 +1358,7 @@ Response
 
 订阅请求
 
-```json
+```
 {
   "method": "kline.subscribe",
   "params": [
@@ -1371,7 +1371,7 @@ Response
 
 Response
 
-```json
+```
 {
   "id": null,
   "method": "kline.update",
@@ -1392,7 +1392,7 @@ Response
 
 ##### 取消订阅
 
-```json
+```
 {"method":"kline.unsubscribe"}
 ```
 
@@ -1402,7 +1402,7 @@ Response
 
 用请求方式一次性获取K线数据，需要额外提供以下参数： （每次最多返回xxx条）
 
-```json
+```
 {"method":"kline.query","params":[$market$,$start$,$end$,$interval$],"id":10086}
 ```
 
@@ -1413,7 +1413,7 @@ Response
 
 查询请求
 
-```json
+```
 {
   "method": "kline.query",
   "params": [
@@ -1428,7 +1428,7 @@ Response
 
 Response
 
-```json
+```
 {
   "error": null,
   "result": [
@@ -1464,7 +1464,7 @@ Response
 
 ##### 主题订阅
 
-```json
+```
 {"method":"depth.subscribe","params":[$market$,$limit$,$interval$],"id":10086}
 ```
 
@@ -1476,7 +1476,7 @@ Response
 
 订阅请求
 
-```json
+```
 {
   "method": "depth.subscribe",
   "params": [
@@ -1490,7 +1490,7 @@ Response
 
 Response
 
-```json
+```
 {
   "id": null,
   "method": "depth.update",
@@ -1527,7 +1527,7 @@ Response
 
 ##### 取消订阅
 
-```json
+```
 {"method":"depth.unsubscribe"}
 ```
 
@@ -1537,7 +1537,7 @@ Response
 
 用请求方式一次性获取深度数据
 
-```json
+```
 {"method":"depth.query","params":[$market$,$limit$,$interval$],"id":10086}
 ```
 
@@ -1549,7 +1549,7 @@ Response
 
 查询请求
 
-```json
+```
 {
   "method": "depth.query",
   "params": [
@@ -1563,7 +1563,7 @@ Response
 
 Response
 
-```json
+```
 {
   "id": 10086,
   "error": null,
@@ -1602,7 +1602,7 @@ Response
 
 ##### 主题订阅
 
-```json
+```
 {"method":"price.subscribe","params":[$market$],"id":10086}
 ```
 
@@ -1612,7 +1612,7 @@ Response
 
 订阅请求
 
-```json
+```
 {
   "method": "price.subscribe",
   "params": [
@@ -1624,7 +1624,7 @@ Response
 
 Response
 
-```json
+```
 {
   "method": "price.update",
   "params": [
@@ -1637,7 +1637,7 @@ Response
 
 ##### 取消订阅
 
-```json
+```
 {"method":"price.unsubscribe"}
 ```
 
@@ -1647,7 +1647,7 @@ Response
 
 用请求方式一次性获取市场最新价格数据
 
-```json
+```
 {"method":"price.query","params":[$market$],"id":10086}
 ```
 
@@ -1657,7 +1657,7 @@ Response
 
 查询请求
 
-```json
+```
 {
   "method": "price.query",
   "params": [
@@ -1669,7 +1669,7 @@ Response
 
 Response
 
-```json
+```
 {
   "error": null,
   "result": "7482.0109",
@@ -1685,7 +1685,7 @@ Response
 
 ##### 主题订阅
 
-```json
+```
 {"method":"deals.subscribe","params":[$market$],"id":10086}
 ```
 
@@ -1695,7 +1695,7 @@ Response
 
 订阅请求
 
-```json
+```
 {
   "method": "deals.subscribe",
   "params": [
@@ -1707,7 +1707,7 @@ Response
 
 Response
 
-```json
+```
 {
   "method": "deals.update",
   "params": [
@@ -1728,7 +1728,7 @@ Response
 
 ##### 取消订阅
 
-```json
+```
 {"method":"deals.unsubscribe"}
 ```
 
@@ -1738,7 +1738,7 @@ Response
 
 用请求方式一次性获取市场最新成交数据。
 
-```json
+```
 {"method":"deals.query","params":[$market$,$limit$,$last_id$],"id":10086}
 ```
 
@@ -1750,7 +1750,7 @@ Response
 
 查询请求
 
-```json
+```
 {
   "method": "deals.query",
   "params": [
@@ -1764,7 +1764,7 @@ Response
 
 Response
 
-```json
+```
 {
   "error": null,
   "result": [
@@ -1782,7 +1782,7 @@ Response
       "price": "7463.8087",
       "amount": "0.2333"
     },
-    ...
+    ...s
   ],
   "id": 10086
 }
