@@ -118,27 +118,20 @@ GET https://www.zt.com/api/v1/tickers
 
 Response:
 {
-    "ticker":[
-        {
-            "buy":"0.378",
-            "high":"0.39999995",
-            "last":"0.388",
-            "low":"0.374101",
-            "sell":"0.387",
-            "symbol":"BTC_USDT",
-            "vol":"3485328.1114718"
-        },
-        {
-            "buy":"1924",
-            "high":"1938.84",
-            "last":"1924",
-            "low":"1864.97",
-            "sell":"1926",
-            "symbol":"ETH_USDT",
-            "vol":"2948.19477569"
-        }
-    ],
-    "timestamp":"1535452275851"
+  "ticker": [
+    {
+      "buy": "28.3437",
+      "change": "2.95",    
+      "high": "29.8265",
+      "last": "28.8402",
+      "low": "27.9001",
+      "sell": "29.3233",
+      "symbol": "ZEC_USDT",
+      "vol": "18564.4392"
+    },
+    ...
+  ],
+  "timestamp": "1577680809298"
 }
 ```
 
@@ -146,6 +139,7 @@ Response:
 ```
 timestamp: 服务端时间戳
 buy: 最佳BID
+change: 涨跌幅
 high: 最高价
 last: 最新价
 low: 最低价
