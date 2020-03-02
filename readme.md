@@ -355,7 +355,7 @@ symbol: 交易对
 'price':'50',
 'amount':'0.02'
 
-参数字符串:amount=33.33&api_key=apiKey&market=BTC_USDT&price=50&side=1
+参数字符串:amount=0.02&api_key=apiKey&market=BTC_USDT&price=50&side=1
 
 注意:生成MD5签名必须要secretKey,在以上生成的字符串基础上添加secret_key以生成最终的字符串。
 
