@@ -31,6 +31,7 @@ def sub_client():
         print(rec_msg)
 
 
+# 市场状态订阅查询（一次性查询）
 def query_client():
     url = "wss://ws.zt.com/ws"
     conn = create_connection(url)
