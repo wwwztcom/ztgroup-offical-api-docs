@@ -21,11 +21,11 @@
   - [**市价交易**](#市价交易)
   - [**取消某个委托订单**](#取消某个委托订单)
   - [**批量取消委托订单**](#批量取消委托订单)
-  - [**查询订单成交接口**](#查询订单成交接口)
   - [**查询未成交订单**](#查询未成交订单)
   - [**查询某个未成交订单详情**](#查询某个未成交订单详情)
   - [**查询已成交订单接口**](#查询已成交订单接口)
   - [**查询某个已成交订单详情**](#查询某个已成交订单详情)
+  - [**查询订单成交接口**](#查询订单成交接口(分笔交明细))
 
 - [**Websocket API**](#websocket-api)
 
@@ -37,7 +37,7 @@
   - [**市场最新价格数据**](#市场最新价格数据)
   - [**最新成交数据**](#最新成交数据)
 
-  ​
+  
 
 ## 入门指引
 
@@ -370,7 +370,7 @@ MD5签名：
 
 POST /api/v1/private/user 
 
-频率限制：500次/min
+频率限制：20次/s
 
 ### 示例
 
@@ -438,16 +438,16 @@ withdraw_status: 提币状态0为不可提币，1为可提币
 
 POST /api/v1/private/trade/limit  
 
-频率限制：500次/min
+频率限制：20次/s
 
 ### 请求参数
 
-| 参数     | 描述              |
-| ------ | --------------- |
-| market | 市场              |
-| side   | 1为ASK卖出，2为BID买入 |
-| amount | 数量              |
-| price  | 价格              |
+| 参数   | 描述                   | 类型   | 值                     |
+| ------ | ---------------------- | ------ | ---------------------- |
+| market | 市场                   | string | 自定义（eg: BTC_USDT） |
+| side   | 1为ASK卖出，2为BID买入 | string | 1,2                    |
+| amount | 数量                   | string | 自定义                 |
+| price  | 价格                   | string | 自定义                 |
 
 ### 示例
 ```
@@ -505,15 +505,15 @@ user: 用户编号
 
 POST /api/v1/private/trade/market  用户市价交易
 
-频率限制：500次/min
+频率限制：20次/s
 
 ### 请求参数
 
-| 参数     | 描述              |
-| ------ | --------------- |
-| market | 市场              |
-| side   | 1为ASK卖出，2为BID买入 |
-| amount | 数量              |
+| 参数   | 描述                   | 类型   | 值                     |
+| ------ | ---------------------- | ------ | ---------------------- |
+| market | 市场                   | string | 自定义（eg: BTC_USDT） |
+| side   | 1为ASK卖出，2为BID买入 | string | 1,2                    |
+| amount | 数量                   | string | 自定义                 |
 
 ### 示例
 
@@ -572,13 +572,13 @@ user: 用户编号
 
 POST /api/v1/private/trade/cancel 
 
-频率限制：500次/min
+频率限制：20次/s
 
 ### 请求参数
-| 参数       | 描述   |
-| -------- | ---- |
-| market   | 市场名称 |
-| order_id | 订单编号 |
+| 参数     | 描述     | 类型   | 值                     |
+| -------- | -------- | ------ | ---------------------- |
+| market   | 市场名称 | string | 自定义（eg: BTC_USDT） |
+| order_id | 订单编号 | string | 自定义（eg: 32865）    |
 
 ### 示例
 
@@ -621,13 +621,13 @@ deal_money: 成交金额
 deal_stock: 成交资产
 id: 编号
 left: 剩余
-maker_fee: maker手续费
+maker_fee: maker手续费
 market: 市场名
 mtime: 发布到市场时间
 price: 价格
 side: 1为ASK卖出，2为BID买入
-source:来源
-taker_fee: taker手续费
+source:来源
+taker_fee: taker手续费
 type: 交易类型，1为限价，2为市价
 user: 用户编号
 ```
@@ -637,15 +637,13 @@ user: 用户编号
 
 POST /api/v1/private/trade/cancel_batch 每次批量取消委托订单数量不超过10个。
 
-频率限制：500次/min
+频率限制：20次/s
 
 ### 请求参数
 
-| 参数          | 描述      | 取值                                       |
-| ----------- | ------- | ---------------------------------------- |
-| orders_json | 订单编号    | [{"market":"BTC_USDT", "order_id":456647},{"market":"BTC_USDT", "order_id":456648}] |
-| sign        | 签名      |                                          |
-| api_key     | api_key |                                          |
+| 参数        | 描述     | 取值 | 取值                                                         |
+| ----------- | -------- | ---- | ------------------------------------------------------------ |
+| orders_json | 订单编号 | json | [{"market":"BTC_USDT", "order_id":456647},{"market":"BTC_USDT", "order_id":456648}] |
 
 ### 示例
 
@@ -686,79 +684,19 @@ result: 取消结果(true 表示取消成功，false 表示取消失败)
 ```
 
 ------
-## 查询订单成交接口
-
-POST /api/v1/private/order/deals 
-
-频率限制：500次/min
-
-### 请求参数
-
-| 参数       | 描述   |
-| -------- | ---- |
-| order_id | 订单编号 |
-| offset   | 偏移   |
-| limit    | 限制值  |
-
-### 示例
-```
-# Request 
-POST https://www.zt.com/api/v1/private/order/deals
-# Response
-{
-  "code": 0,
-  "message": "操作成功",
-  "result": {
-    "limit": 20,
-    "offset": 0,
-    "records": [
-      {
-        "amount": "1",
-        "deal": "19.96",
-        "deal_order_id": 32730,
-        "fee": "0.001",
-        "id": 25503,
-        "price": "19.96",
-        "role": 2,
-        "time": 1535437951.751402,
-        "user": 670865
-      }
-    ]
-  }
-}
-```
-
-### 返回数据说明
-
-```
-limit: 限制
-offset: 偏移
-records: 记录
-amount: 数量
-deal: 已成交
-deal_order_id: 成交的订单id
-fee: 手续费
-id: 成交id
-price: 价格
-role: 角色，1为Maker,2为Taker
-time: 时间戳
-user: 用户编号
-```
-
----
 ## 查询未成交订单
 
 POST /api/v1/private/order/pending  
 
-频率限制：500次/min
+频率限制：20次/s
 
 ### 请求参数
 
-| 参数     | 描述   |
-| ------ | ---- |
-| market | 市场   |
-| offset | 偏移   |
-| limit  | 限制值  |
+| 参数   | 描述   | 类型   | 值                     |
+| ------ | ------ | ------ | ---------------------- |
+| market | 市场   | string | 自定义（eg: BTC_USDT） |
+| offset | 偏移   | string | 自定义                 |
+| limit  | 限制值 | string | 自定义（不超过100）    |
 
 
 ### 示例
@@ -787,6 +725,7 @@ POST https://www.zt.com/api/v1/private/order/pending
         "price": "5.1",
         "side": 2,
         "source": "web,1",
+        "status": 1,
         "taker_fee": "0.001",
         "type": 1,
         "user": 670865
@@ -813,6 +752,7 @@ mtime: 发布到市场时间
 price: 价格
 side: 1为ASK卖出，2为BID买入
 source:来源
+status: 1-初始化，2-已触发，3-已取消，4-部分成交，5-完全成交
 taker_fee: taker手续费
 type: 交易类型，1为限价，2为市价
 user: 用户编号
@@ -823,14 +763,14 @@ user: 用户编号
 
 POST /api/v1/private/order/pending/detail  
 
-频率限制：500次/min
+频率限制：20次/s
 
 ### 请求参数
 
-| 参数       | 描述   |
-| -------- | ---- |
-| market   | 市场   |
-| Order_id | 订单号  |
+| 参数     | 描述   | 类型   |                        |
+| -------- | ------ | ------ | ---------------------- |
+| market   | 市场   | string | 自定义（eg: BTC_USDT） |
+| Order_id | 订单号 | string | 自定义（eg:  1080）    |
 
 ### 示例
 ```
@@ -872,13 +812,13 @@ deal_money: 成交金额
 deal_stock: 成交资产
 id: 编号
 left: 剩余
-maker_fee: maker手续费
+maker_fee: maker手续费
 market: 市场名
 ftime: 发布到市场时间
 price: 价格
 side: 1为ASK卖出,2为BID买入
 source: 来源
-taker_fee: taker手续费
+taker_fee: taker手续费
 type: 交易类型,1为限价,2为市价
 user: 用户编号
 ```
@@ -888,18 +828,18 @@ user: 用户编号
 
 POST /api/v1/private/order/finished 
 
-频率限制：500次/min
+频率限制：20次/s
 
 ### 请求参数
 
-| 参数         | 描述                   |
-| ---------- | -------------------- |
-| market     | 市场                   |
-| start_time | 结束时间，以秒计数的时间戳，不限为0   |
-| end_time   | 结束时间，以秒计数的时间戳，不限为0   |
-| offset     | 偏移                   |
-| limit      | 限制                   |
-| side       | 1为ASK卖出，2为BID买入,不限为0 |
+| 参数       | 描述                                | 类型   | 值                     |
+| ---------- | ----------------------------------- | ------ | ---------------------- |
+| market     | 市场                                | string | 自定义（eg: BTC_USDT） |
+| start_time | 结束时间，以秒计数的时间戳，不限为0 | string | 时间戳（s）            |
+| end_time   | 结束时间，以秒计数的时间戳，不限为0 | string | 时间戳（s）            |
+| offset     | 偏移                                | string | 自定义                 |
+| limit      | 限制                                | string | 不超过100              |
+| side       | 1为ASK卖出，2为BID买入,不限为0      | string | 0，1，2                |
 
 ### 示例
 ```
@@ -979,13 +919,13 @@ user: 用户编号
 
 POST /api/v1/private/order/finished/detail 
 
-频率限制：500次/min
+频率限制：20次/s
 
 ### 请求参数
 
-| 参数       | 描述   |
-| -------- | ---- |
-| order_id | 订单号  |
+| 参数     | 描述   | 类型   | 值               |
+| -------- | ------ | ------ | ---------------- |
+| order_id | 订单号 | string | 自定义（eg:1081) |
 
 ### 示例
 
@@ -1038,9 +978,72 @@ type: 交易类型，1为限价，2为市价
 user: 用户编号
 ```
 
+------
 
+## 查询订单成交接口(分笔交明细)
 
+POST /api/v1/private/order/deals 
 
+频率限制：20次/s
+
+### 请求参数
+
+| 参数     | 描述     | 类型   | 值                  |
+| -------- | -------- | ------ | ------------------- |
+| order_id | 订单编号 | string | 自定义(eg:32730)    |
+| offset   | 偏移     | string | 自定义              |
+| limit    | 限制值   | string | 自定义（不超过100） |
+
+### 示例
+
+```
+# Request 
+POST https://www.zt.com/api/v1/private/order/deals
+# Response
+{
+  "code": 0,
+  "message": "操作成功",
+  "result": {
+    "limit": 20,
+    "offset": 0,
+    "records": [
+      {
+        "amount": "1",
+        "deal": "19.96",
+        "deal_order_id": 32730,
+        "fee": "0.001",
+        "id": 25503,
+        "price": "19.96",
+        "role": 2,
+        "time": 1535437951.751402,
+        "user": 670865
+      }
+      ...
+    ]
+  }
+}
+```
+
+### 返回数据说明
+
+```
+limit: 限制
+offset: 偏移
+records: 记录
+amount: 数量
+deal: 已成交
+deal_order_id: 成交的订单id
+fee: 手续费
+id: 成交id
+price: 价格
+role: 角色，1为Maker,2为Taker
+time: 时间戳
+user: 用户编号
+```
+
+---
+
+## 
 
 ## Websocket API
 
