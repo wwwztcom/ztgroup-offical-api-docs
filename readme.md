@@ -1,6 +1,6 @@
 # ZT OPEN API
 
-简体中文| [English](./readme.en.md)
+简体中文| [English](./readme-en.md)
 
 - [**入门指引**](#入门指引)
   
