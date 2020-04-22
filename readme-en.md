@@ -6,7 +6,7 @@
   
   - [**Create API key**](#Create-API-key)
   - [**Interface call mode description**](#Interface-call-mode-description)
-- [**Server**](#The Server)
+- [**Server**](#The-Server)
   
 - [**REST API**](#rest-api)
   
@@ -27,7 +27,7 @@
   - [**Get pending orders**](#Get-pending-orders)
   - [**Get a pending order detail**](#Get-a-pending-order-detail)
   - [**Get finished orders**](#Get-finished-orders)
-  - [**Get a finished order detail **](#Get-a-finished-order-detail )
+  - [**Get a finished order detail**](#Get-a-finished-order-detail )
   
 - [**Websocket API**](#websocket-api)
 
