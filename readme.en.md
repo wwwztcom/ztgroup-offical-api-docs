@@ -1,6 +1,6 @@
 # ZT OPEN API
 
-[简体中文](./readme.md) |[English
+[简体中文](./readme.md) |English
 
 - [**GUIDE**](#Guide)
   
