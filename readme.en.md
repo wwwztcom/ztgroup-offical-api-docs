@@ -83,9 +83,9 @@ All requests are based on the HTTPS protocol. The content type in the request he
 | **Error code** | **introduce**                                | **reason**               |
 | :------------- | :------------------------------------------- | :----------------------- |
 | 0              | Success                                      |                          |
-| 1              | arameter is invalid                          |                          |
+| 1              | parameter is invalid                         |                          |
 | 2              | Internal error                               |                          |
-| 3              | ervice is not available                      |                          |
+| 3              | service is not available                     |                          |
 | 4              | Method not found                             |                          |
 | 5              | Service timeout                              |                          |
 | 10             | Insufficient amount                          |                          |
@@ -960,7 +960,7 @@ Obtain the market status data of the past specific time in one time by request
 | market    | string | true            |             | eg:BTC_USDT |
 | period    | int    | true            |             | Eg: 86400   |
 
-查询请求
+Query request
 
 ```
 {
