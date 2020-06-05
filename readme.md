@@ -1,4 +1,4 @@
-# ztb OPEN API
+# ZT OPEN API
 
 简体中文| [English](./readme-en.md)
 
