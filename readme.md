@@ -441,7 +441,7 @@ withdraw_status: 提币状态0为不可提币，1为可提币
 
 POST /api/v1/private/trade/limit  
 
-频率限制：20次/s
+频率限制：500次/s
 
 ### 请求参数
 
@@ -575,7 +575,7 @@ user: 用户编号
 
 POST /api/v1/private/trade/cancel 
 
-频率限制：20次/s
+频率限制：100次/s
 
 ### 请求参数
 | 参数     | 描述     | 类型   | 值                     |
@@ -831,7 +831,7 @@ user: 用户编号
 
 POST /api/v1/private/order/finished 
 
-频率限制：20次/s
+频率限制：10次/s
 
 ### 请求参数
 
