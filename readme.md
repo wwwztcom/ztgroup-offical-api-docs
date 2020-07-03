@@ -102,6 +102,7 @@ REST API 提供行情查询、余额查询、币币交易、订单管理功能
 ### 注意
 
 - 所有接口请求（公共和私有接口）都必须在Request请求的Header中添加 X-SITE-ID 字段，该字段的值为”1“。该字段不用做签名校验。
+- 调用频率限制根据UID限制，各个接口的限制有所差异。
 
 
 # 行情API 公共接口
@@ -372,7 +373,7 @@ MD5签名：
 
 POST /api/v1/private/user 
 
-频率限制：20次/s
+频率限制：10次/s
 
 ### 示例
 
@@ -507,7 +508,7 @@ user: 用户编号
 
 POST /api/v1/private/trade/market  用户市价交易
 
-频率限制：20次/s
+频率限制：500次/s
 
 ### 请求参数
 
@@ -639,7 +640,7 @@ user: 用户编号
 
 POST /api/v1/private/trade/cancel_batch 每次批量取消委托订单数量不超过10个。
 
-频率限制：20次/s
+频率限制：10次/s
 
 ### 请求参数
 
@@ -765,7 +766,7 @@ user: 用户编号
 
 POST /api/v1/private/order/pending/detail  
 
-频率限制：20次/s
+频率限制：10次/s
 
 ### 请求参数
 
@@ -921,7 +922,7 @@ user: 用户编号
 
 POST /api/v1/private/order/finished/detail 
 
-频率限制：20次/s
+频率限制：10次/s
 
 ### 请求参数
 
