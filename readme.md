@@ -987,7 +987,7 @@ user: 用户编号
 
 POST /api/v1/private/order/deals 
 
-频率限制：20次/s
+频率限制：10次/s
 
 ### 请求参数
 
