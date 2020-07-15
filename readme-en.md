@@ -337,7 +337,7 @@ Use MD5 encryption string of 32bit, the generated encryption string must be uppe
 
 POST /api/v1/private/user 
 
-Frequency limit: 20 times / S
+Frequency limit: 10 times / S
 
 ### Example
 
@@ -394,7 +394,7 @@ Response:
 
 POST /api/v1/private/trade/limit  
 
-Frequency limit: 20 times / s
+Frequency limit: 500 times / s
 
 ### Request parameters
 
@@ -442,7 +442,7 @@ Response:
 
 POST /api/v1/private/trade/market  
 
-Frequency limit: 20 times / S
+Frequency limit: 500 times / S
 
 ### Request parameters
 
@@ -538,7 +538,7 @@ POST /api/v1/private/trade/cancel_batch
 
 Note : No more than 10 orders each time.
 
-Frequency limit: 20 times / S
+Frequency limit: 10 times / S
 
 ### Request parameters
 
@@ -684,7 +684,7 @@ Response:
 
 POST /api/v1/private/order/finished 
 
-Frequency limit: 20 times / S
+Frequency limit: 10 times / S
 
 ### Request parameters
 
@@ -804,7 +804,7 @@ Response:
 
 ##### **Access URL**
 
-wss://ws.zt.com/ws
+wss://ws.ztb.com/ws
 
 ##### Request format
 
