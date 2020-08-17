@@ -9,7 +9,7 @@ const (
 	API_KEY     = "" // "xxx"
 	SECRET_KEY  = "" // "xxx"
 	ContentType = "application/x-www-form-urlencoded"
-	HostUrl     = "https://www.zt.com" // "xxx"
+	HostUrl     = "https://www.ztb.com" // "xxx"
 	X_SITE_ID   = "1" // "xxx"
 )
 

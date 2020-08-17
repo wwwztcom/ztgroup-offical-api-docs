@@ -4,8 +4,8 @@ import models
 
 # 查询系统支持的所有币种,交易精度
 def get_exchange_info():
-    str_request_url = "/api/v1/exchangeInfo"
-    str_url = models.Host_Url + str_request_url
+    req_path = "/api/v1/exchangeInfo"
+    str_url = models.Host_Url + req_path
     exchange_info = utils.http_get_request(str_url)
 
     print(exchange_info)
@@ -13,8 +13,8 @@ def get_exchange_info():
 
 # 获取聚合行情
 def get_ticker():
-    str_request_url = "/api/v1/tickers"
-    str_url = models.Host_Url + str_request_url
+    req_path = "/api/v1/tickers"
+    str_url = models.Host_Url + req_path
     ticker = utils.http_post_request(str_url)
 
     print(ticker)
@@ -24,8 +24,8 @@ def get_ticker():
 # symbol: 交易对, BTC_USDT
 # size: 获取数量
 def get_depth(symbol: str, size: str):
-    str_request_url = "/api/v1/depth?symbol={}&size={}".format(symbol, size)
-    str_url = models.Host_Url + str_request_url
+    req_path = "/api/v1/depth?symbol={}&size={}".format(symbol, size)
+    str_url = models.Host_Url + req_path
     depth = utils.http_get_request(str_url)
 
     print(depth)
@@ -36,8 +36,8 @@ def get_depth(symbol: str, size: str):
 # period: K线类型, 1min, 5min, 15min......
 # size: 获取数量, [1-2000]
 def get_kline(symbol: str, period: str, size: str):
-    str_request_url = "/api/v1/kline?symbol={}&type={}&size={}".format(symbol, period, size)
-    str_url = models.Host_Url + str_request_url
+    req_path = "/api/v1/kline?symbol={}&type={}&size={}".format(symbol, period, size)
+    str_url = models.Host_Url + req_path
     kline = utils.http_get_request(str_url)
 
     print(kline)

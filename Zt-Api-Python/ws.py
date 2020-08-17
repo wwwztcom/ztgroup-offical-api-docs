@@ -16,7 +16,7 @@ import random
 # example
 # 市场状态订阅
 def sub_client():
-    url = "wss://ws.zt.com/ws"
+    url = "wss://ws.ztb.com/ws"
     conn = create_connection(url)
     rand_num = random.randint(1, 10000)
     msg = json.dumps({"method": "state.subscribe", "params": ["BTC_USDT"], "id": rand_num})
@@ -33,7 +33,7 @@ def sub_client():
 
 # 市场状态订阅查询（一次性查询）
 def query_client():
-    url = "wss://ws.zt.com/ws"
+    url = "wss://ws.ztb.com/ws"
     conn = create_connection(url)
     rand_num = random.randint(1, 10000)
     msg = json.dumps({"method": "state.query", "params": ["BTC_USDT", 86400], "id": rand_num})

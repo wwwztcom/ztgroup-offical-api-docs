@@ -8,7 +8,7 @@ SECRET_KEY = "xxx"
 # content-y=type
 ContentType = "application/x-www-form-urlencoded"
 # url
-Host_Url = "https://www.zt.com"
+Host_Url = "https://www.ztb.com"
 # 站点ID
 X_SITE_ID = "1"
 

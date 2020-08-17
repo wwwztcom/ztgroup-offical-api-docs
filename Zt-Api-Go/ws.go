@@ -10,7 +10,7 @@ import (
 )
 
 /*
-api 请求地址 wss://ws.zt.com/ws
+api 请求地址 wss://ws.ztb.com/ws
 
 请求
 
@@ -39,7 +39,7 @@ api 请求地址 wss://ws.zt.com/ws
 // 订阅
 func SubClient() {
 
-	u := url.URL{Scheme: "wss", Host: "ws.zt.com", Path: "/ws"}
+	u := url.URL{Scheme: "wss", Host: "ws.ztb.com", Path: "/ws"}
 	dialer := websocket.DefaultDialer
 
 	conn, _, err := dialer.Dial(u.String(), nil)
