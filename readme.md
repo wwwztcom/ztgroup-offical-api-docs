@@ -47,7 +47,7 @@
 
 ### 创建API Key
 
-用户在 **[ZT](https://www.ztb.com)** 注册账号后，需要在[API管理]中创建API Key秘钥，创建完成后得到一组随机生成的API Key与Secret Key,利用这一组数据可以进行程序化交易，单个账号最多创建5个密钥
+用户在 **[ZT](https://www.ztb.im)** 注册账号后，需要在[API管理]中创建API Key秘钥，创建完成后得到一组随机生成的API Key与Secret Key,利用这一组数据可以进行程序化交易，单个账号最多创建5个密钥
 
 > **请不要泄露API Key 与 Secret Key信息，以免造成资产损失,建议用户为API绑定IP地址，每个密钥最多绑定5个IP，使用英文逗号进行分隔**
 
@@ -66,7 +66,7 @@
 
 ### 接入 URL
 
-- [https://www.ztb.com](https://www.ztb.com) 
+- [https://www.ztb.im](https://www.ztb.im) 
 
 ### 请求交互
 
@@ -117,7 +117,7 @@ Get  /api/v1/tickers
 
 ```
 Request:
-GET https://www.ztb.com/api/v1/tickers
+GET https://www.ztb.im/api/v1/tickers
 
 Response:
 {
@@ -167,7 +167,7 @@ Get /api/v1/depth
 ### 示例
 ```
 Request:
-GET https://www.ztb.com/api/v1/depth?symbol=BTC_USDT&size=1
+GET https://www.ztb.im/api/v1/depth?symbol=BTC_USDT&size=1
 
 Response:
 {
@@ -203,7 +203,7 @@ Get /api/v1/trades
 
 ```
 Request:
-GET https://www.ztb.com/api/v1/trades?symbol=BTC_USDT&size=1
+GET https://www.ztb.im/api/v1/trades?symbol=BTC_USDT&size=1
 
 Response:
 [
@@ -250,7 +250,7 @@ Get /api/v1/kline
 
 ```
 Request:
-GET https://www.ztb.com/api/v1/kline?symbol=BTC_USDT&type=1min&size=10
+GET https://www.ztb.im/api/v1/kline?symbol=BTC_USDT&type=1min&size=10
 
 Response:
 [
@@ -304,7 +304,7 @@ Get /api/v1/exchangeInfo
 ### 示例
 ```
 Request:
-GET https://www.ztb.com/api/v1/exchangeInfo
+GET https://www.ztb.im/api/v1/exchangeInfo
 
 Response:
 [
@@ -379,7 +379,7 @@ POST /api/v1/private/user
 
 ```
 Request:
-POST https://www.ztb.com/api/v1/private/user
+POST https://www.ztb.im/api/v1/private/user
 
 Response:
 {
@@ -455,7 +455,7 @@ POST /api/v1/private/trade/limit
 ### 示例
 ```
 Request:
-POST https://www.ztb.com/api/v1/private/trade/limit
+POST https://www.ztb.im/api/v1/private/trade/limit
 
 Response:
 {
@@ -522,7 +522,7 @@ POST /api/v1/private/trade/market  用户市价交易
 
 ```
 Request: 
-POST https://www.ztb.com/api/v1/private/trade/market
+POST https://www.ztb.im/api/v1/private/trade/market
 
 Response:
 {
@@ -587,7 +587,7 @@ POST /api/v1/private/trade/cancel
 
 ```
 Request: 
-POST https://www.ztb.com/api/v1/private/trade/cancel
+POST https://www.ztb.im/api/v1/private/trade/cancel
 
 Response:
 {
@@ -652,7 +652,7 @@ POST /api/v1/private/trade/cancel_batch 每次批量取消委托订单数量不�
 
 ```
 Request:
-POST https://www.ztb.com/api/v1/private/trade/cancel_batch
+POST https://www.ztb.im/api/v1/private/trade/cancel_batch
 
 Response:
 {
@@ -705,7 +705,7 @@ POST /api/v1/private/order/pending
 ### 示例
 ```
 # Request 
-POST https://www.ztb.com/api/v1/private/order/pending
+POST https://www.ztb.im/api/v1/private/order/pending
 # Response
 {
   "code": 0,
@@ -778,7 +778,7 @@ POST /api/v1/private/order/pending/detail
 ### 示例
 ```
 Request:
-POST https://www.ztb.com/api/v1/private/order/pending/detail
+POST https://www.ztb.im/api/v1/private/order/pending/detail
 
 Response:
 {
@@ -847,7 +847,7 @@ POST /api/v1/private/order/finished
 ### 示例
 ```
 Request: 
-POST https://www.ztb.com/api/v1/private/order/finished
+POST https://www.ztb.im/api/v1/private/order/finished
 
 Response:
 {
@@ -934,7 +934,7 @@ POST /api/v1/private/order/finished/detail
 
 ```
 Request:
-POST https://www.ztb.com/api/v1/private/order/finished/detail
+POST https://www.ztb.im/api/v1/private/order/finished/detail
 
 Response:
 {
@@ -1001,7 +1001,7 @@ POST /api/v1/private/order/deals
 
 ```
 # Request 
-POST https://www.ztb.com/api/v1/private/order/deals
+POST https://www.ztb.im/api/v1/private/order/deals
 # Response
 {
   "code": 0,

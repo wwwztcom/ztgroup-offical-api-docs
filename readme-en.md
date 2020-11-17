@@ -47,7 +47,7 @@
 
 ### Create API key
 
-After registering an account with **[ZT](https://www.ztb.com)** , the user needs to create an API key in [API management]. After the creation, a set of randomly generated API key and secret key will be obtained. With this set of data, programmed transactions can be carried out. A single account can create up to 5 keys
+After registering an account with **[ZT](https://www.ztb.im)** , the user needs to create an API key in [API management]. After the creation, a set of randomly generated API key and secret key will be obtained. With this set of data, programmed transactions can be carried out. A single account can create up to 5 keys
 
 > **Please do not disclose the information of API key and secret key, so as to avoid asset loss. It is recommended that the user bind the IP address for the API. Each key is bound to a maximum of 5 IPS, separated by English commas**
 
@@ -66,7 +66,7 @@ After registering an account with **[ZT](https://www.ztb.com)** , the user needs
 
 ### Access URL
 
-- [https://www.ztb.com](https://www.ztb.com) 
+- [https://www.ztb.im](https://www.ztb.im) 
 
 ### Request  interaction
 
@@ -115,7 +115,7 @@ Frequency limit：20times/s
 
 ```
 Request:
-GET https://www.ztb.com/api/v1/tickers
+GET https://www.ztb.im/api/v1/tickers
 
 Response:
 {
@@ -155,7 +155,7 @@ Frequency limit: 20 times / S
 
 ```
 Request:
-GET https://www.ztb.com/api/v1/depth?symbol=BTC_USDT&size=1
+GET https://www.ztb.im/api/v1/depth?symbol=BTC_USDT&size=1
 
 Response:
 {
@@ -192,7 +192,7 @@ Frequency limit: 20 times / S
 
 ```
 Request:
-GET https://www.ztb.com/api/v1/trades?symbol=BTC_USDT&size=1
+GET https://www.ztb.im/api/v1/trades?symbol=BTC_USDT&size=1
 
 Response:
 [
@@ -231,7 +231,7 @@ Frequency limit: 20 times / S
 
 ```
 Request:
-GET https://www.ztb.com/api/v1/kline?symbol=BTC_USDT&type=1min&size=10
+GET https://www.ztb.im/api/v1/kline?symbol=BTC_USDT&type=1min&size=10
 
 Response:
 [
@@ -277,7 +277,7 @@ Frequency limit: 20 times / S
 
 ```
 Request:
-GET https://www.ztb.com/api/v1/exchangeInfo
+GET https://www.ztb.im/api/v1/exchangeInfo
 
 Response:
 [
@@ -343,7 +343,7 @@ Frequency limit: 10 times / S
 
 ```
 Request:
-POST https://www.ztb.com/api/v1/private/user
+POST https://www.ztb.im/api/v1/private/user
 
 Response:
 {
@@ -408,7 +408,7 @@ Frequency limit: 500 times / s
 ### Example
 ```
 Request:
-POST https://www.ztb.com/api/v1/private/trade/limit
+POST https://www.ztb.im/api/v1/private/trade/limit
 
 Response:
 {
@@ -456,7 +456,7 @@ Frequency limit: 500 times / S
 
 ```
 Request: 
-POST https://www.ztb.com/api/v1/private/trade/market
+POST https://www.ztb.im/api/v1/private/trade/market
 
 Response:
 {
@@ -502,7 +502,7 @@ Frequency limit: 20 times / S
 
 ```
 Request: 
-POST https://www.ztb.com/api/v1/private/trade/cancel
+POST https://www.ztb.im/api/v1/private/trade/cancel
 
 Response:
 {
@@ -550,7 +550,7 @@ Frequency limit: 10 times / S
 
 ```
 Request:
-POST https://www.ztb.com/api/v1/private/trade/cancel_batch
+POST https://www.ztb.im/api/v1/private/trade/cancel_batch
 
 Response:
 {
@@ -597,7 +597,7 @@ Frequency limit: 20 times / S
 ### Example
 ```
 # Request 
-POST https://www.ztb.com/api/v1/private/order/pending
+POST https://www.ztb.im/api/v1/private/order/pending
 # Response
 {
   "code": 0,
@@ -650,7 +650,7 @@ Frequency limit: 20 times / S
 ### Example
 ```
 Request:
-POST https://www.ztb.com/api/v1/private/order/pending/detail
+POST https://www.ztb.im/api/v1/private/order/pending/detail
 
 Response:
 {
@@ -700,7 +700,7 @@ Frequency limit: 10 times / S
 ### Example
 ```
 Request: 
-POST https://www.ztb.com/api/v1/private/order/finished
+POST https://www.ztb.im/api/v1/private/order/finished
 
 Response:
 {
@@ -768,7 +768,7 @@ Frequency limit: 20 times / S
 
 ```
 Request:
-POST https://www.ztb.com/api/v1/private/order/finished/detail
+POST https://www.ztb.im/api/v1/private/order/finished/detail
 
 Response:
 {
