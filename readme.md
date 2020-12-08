@@ -373,7 +373,7 @@ MD5签名：
 
 POST /api/v1/private/user 
 
-频率限制：10次/s
+频率限制：5次/s
 
 ### 示例
 
